@@ -1,10 +1,10 @@
 import java.util.Random;
 
-public class TrashLevel extends Sensor {
+public class TrashLevelSensor extends Sensor {
 
     private float level;
 
-    TrashLevel(String Id, float level) {
+    TrashLevelSensor(String Id, float level) {
         super(Id);
         this.level = level;
     }

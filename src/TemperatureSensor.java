@@ -1,10 +1,10 @@
 import java.util.Random;
 
-public class Temperature extends Sensor {
+public class TemperatureSensor extends Sensor {
 
     private float temperature;
 
-    Temperature(String Id, float temperature) {
+    TemperatureSensor(String Id, float temperature) {
         super(Id);
         this.temperature = temperature;
     }
