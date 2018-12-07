@@ -1,2 +1,2 @@
-public class GlassCan {
+public class GlassCan extends Trashcan {
 }
