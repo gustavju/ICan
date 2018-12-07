@@ -28,11 +28,17 @@ public class GarbageTruck {
             System.out.println("Garbage Truck is Full");
             return;
         }
+
         route.add(trashcan);
+        trashcan.changeStatus(CanStatus.PICKUPPENDING);
     }
 
     public List<Trashcan> getRoute(){
         return route;
+    }
+
+    public void emptyTruck(){
+        route.clear();
     }
 
     public void fillTank(){
@@ -42,4 +48,6 @@ public class GarbageTruck {
     public double getGasLevel(){
         return gasLevel;
     }
+
+
 }
