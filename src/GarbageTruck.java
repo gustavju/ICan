@@ -7,16 +7,16 @@ public class GarbageTruck {
 
     private double gasLevel;
     private final double MAX_CAPACITY= 100;
-    private List<Trashcan> route = new ArrayList();
+    private List<Trashcan> route;
     private Location location;
     private MainServer mainserver;
 
 
-    public GarbageTruck(double gasLevel, Location location ){
+    public GarbageTruck(double gasLevel, Location location, String host, String server, String pass ){
 
         this.gasLevel = gasLevel;
         this.location = location;
-        // mainserver = new MainServer(Ip,password,server)
+        mainserver = new MainServer(host, server, pass);
     }
 
     public void setLocation(Location location){
