@@ -7,7 +7,7 @@ public class MainServer {
 
     public MainServer(String host, String server, String pass) {
         hostName = host;
-        server = serverName;
+        serverName = server;
         password = pass;
     }
 

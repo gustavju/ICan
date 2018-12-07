@@ -9,18 +9,18 @@ public class Temperature extends Sensor {
         this.temperature = temperature;
     }
 
-  public float getTemperature() {
-    return temperature;
-  }
+    public float getTemperature() {
+        return temperature;
+    }
 
-  public void fakeTemperature() {
-    Random rand = new Random();
-    int temp = 1 + rand.nextInt(60) - 30;
-    temperature = temp;
-  }
+    public void fakeTemperature() {
+        Random rand = new Random();
+        int temp = 1 + rand.nextInt(60) - 30;
+        temperature = temp;
+    }
 
-  public void startTrashFire() {
-    temperature = 666;
-  }
+    public void startTrashFire() {
+        temperature = 666;
+    }
 
 }

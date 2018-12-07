@@ -24,7 +24,7 @@ public class GarbageTruck {
     }
 
     public void setRoute(Trashcan trashcan){
-        if(route.size()== MAX_CAPACITY){
+        if(route.size() >= MAX_CAPACITY){
             System.out.println("Garbage Truck is Full");
             return;
         }
