@@ -1,13 +1,13 @@
 abstract class Sensor {
 
-  private String Id;
+    private String Id;
 
-  Sensor(String Id) {
-    this.Id = Id;
-  }
+    Sensor(String Id) {
+        this.Id = Id;
+    }
 
-  String getId() {
-    return Id;
-  }
+    String getId() {
+        return Id;
+    }
 
 }

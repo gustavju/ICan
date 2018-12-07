@@ -5,10 +5,10 @@ public class MainServer {
     private String password;
 
 
-    public MainServer(String host, String server, String pass){
-        hostName=host;
-        server=serverName;
-        password=pass;
+    public MainServer(String host, String server, String pass) {
+        hostName = host;
+        server = serverName;
+        password = pass;
     }
 
     public String getHostName() {

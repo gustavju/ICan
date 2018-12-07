@@ -1,8 +1,9 @@
 public class Main {
 
-    private void run(){
+    private void run() {
 
     }
+
     public static void main(String[] args) {
         new Main().run();
     }
