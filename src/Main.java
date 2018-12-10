@@ -64,7 +64,7 @@ public class Main {
         String topic = "pi";
         String content = "Message from MqttPublishSample";
         int qos = 2;
-        String broker = "tcp://m20.cloudmqtt.com:11706";
+        String broker = mqttProps.getProperty("mqttbroker");
         String clientId = "Adam";
         MemoryPersistence persistence = new MemoryPersistence();
 
@@ -83,7 +83,6 @@ public class Main {
             System.out.println("Publishing message: " + content);
             MqttMessage message = new MqttMessage(content.getBytes());
             message.setQos(qos);
-            sampleClient.publish(topic, message);
             System.out.println("Message published");
             //sampleClient.disconnect();
             System.out.println("Disconnected");
