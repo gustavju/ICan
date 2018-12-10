@@ -1,4 +1,5 @@
 public class Trashcan {
+
     private Location location;
     private TrashLevelSensor trashLevelSensor;
     private TemperatureSensor temperatureSensor;
@@ -16,7 +17,14 @@ public class Trashcan {
 
     public void changeStatus(CanStatus canStatus) {
         this.canStatus = canStatus;
+    }
 
+    public double getTemperature() {
+        return temperatureSensor.getTemperature();
+    }
+
+    public void fakeTemperature() {
+        temperatureSensor.fakeTemperature();
     }
 
     public double getLevel() {
@@ -39,7 +47,7 @@ public class Trashcan {
 
     private void calculateCanStatus() {
         double currentLevel = trashLevelSensor.getLevel();
-        if (currentLevel== 0) {
+        if (currentLevel == 0) {
             canStatus = CanStatus.EMPTY;
         } else if (currentLevel < 90) {
             canStatus = CanStatus.NORMAL;
