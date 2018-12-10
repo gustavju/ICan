@@ -71,8 +71,8 @@ public class Main {
         try {
             MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
             MqttConnectOptions connOpts = new MqttConnectOptions();
-            connOpts.setUserName("ztymlcyd");
-            char[] pass = "RcA-kvA3hrIj".toCharArray();
+            connOpts.setUserName(username);
+            char[] pass = password.toCharArray();
             connOpts.setPassword(pass);
             connOpts.setCleanSession(true);
             System.out.println("Connecting to broker: " + broker);
