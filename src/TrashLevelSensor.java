@@ -2,14 +2,14 @@ import java.util.Random;
 
 public class TrashLevelSensor extends Sensor {
 
-    private float level;
+    private double level;
 
     TrashLevelSensor(String Id, float level) {
         super(Id);
         this.level = level;
     }
 
-    public float getLevel() {
+    public double getLevel() {
         return level;
     }
 
@@ -24,7 +24,7 @@ public class TrashLevelSensor extends Sensor {
     public void addTrash() {
         Random rand = new Random();
         int trashVolume = 1 + rand.nextInt(40);
-        float newTrashLevel = trashVolume + level;
+        double newTrashLevel = trashVolume + level;
         if (newTrashLevel > 100) {
             level = 100;
         } else {

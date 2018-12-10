@@ -2,14 +2,14 @@ import java.util.Random;
 
 public class TemperatureSensor extends Sensor {
 
-    private float temperature;
+    private double temperature;
 
-    TemperatureSensor(String Id, float temperature) {
+    TemperatureSensor(String Id, double temperature) {
         super(Id);
         this.temperature = temperature;
     }
 
-    public float getTemperature() {
+    public double getTemperature() {
         return temperature;
     }
 
