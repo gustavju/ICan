@@ -1,7 +1,10 @@
+
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class GarbageTruck {
+
     private double gasLevel;
     private final double MAX_CAPACITY= 100;
     private List<Trashcan> route;

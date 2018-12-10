@@ -65,7 +65,7 @@ public class Main {
         String content = "Message from MqttPublishSample";
         int qos = 2;
         String broker = "tcp://m20.cloudmqtt.com:11706";
-        String clientId = "JavaSample";
+        String clientId = "Adam";
         MemoryPersistence persistence = new MemoryPersistence();
 
         try {
@@ -78,6 +78,8 @@ public class Main {
             System.out.println("Connecting to broker: " + broker);
             sampleClient.connect(connOpts);
             System.out.println("Connected");
+            sampleClient.setCallback( new SimpleMqttCallBack());
+            sampleClient.subscribe("pi");
             System.out.println("Publishing message: " + content);
             MqttMessage message = new MqttMessage(content.getBytes());
             message.setQos(qos);
