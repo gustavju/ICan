@@ -7,7 +7,7 @@ public class ServerMain {
                 String.format("%s Level:%f, Temp:%f", "Trashcan1", t1.getLevel(), t1.getTemperature()));
 
         String[] subs = {"pi"};
-        MQTTClient mqttClient = new MQTTClient("Adam", subs);
+        MQTTClient mqttClient = new MQTTClient("Adam", new SimpleMqttCallBack(), subs);
         mqttClient.sendMessage("pi", "Hej alla cloudbois!");
     }
 

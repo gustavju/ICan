@@ -1,7 +1,4 @@
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.io.FileInputStream;
@@ -17,13 +14,13 @@ public class MQTTClient {
     private final int qos = 2;
     private MqttClient mqttClient;
 
-    public MQTTClient(String clientId, String[] subscribeTopics) {
+    public MQTTClient(String clientId, MqttCallback callback, String[] subscribeTopics) {
         this.clientId = clientId;
         Properties mqttProps = loadMQTTProperties();
         username = mqttProps.getProperty("mqttusername");
         password = mqttProps.getProperty("mqttpassword");
         broker = mqttProps.getProperty("mqttbroker");
-        mqttClient = setupMQTTClient(subscribeTopics);
+        mqttClient = setupMQTTClient(subscribeTopics, callback);
     }
 
     public void sendMessage(String topic, String content) {
@@ -38,7 +35,7 @@ public class MQTTClient {
 
     }
 
-    private MqttClient setupMQTTClient(String[] subscribeTopics) {
+    private MqttClient setupMQTTClient(String[] subscribeTopics, MqttCallback callback) {
         MemoryPersistence persistence = new MemoryPersistence();
         MqttConnectOptions connOpts = new MqttConnectOptions();
         connOpts.setUserName(username);
@@ -51,7 +48,7 @@ public class MQTTClient {
             for (String subscribeTopic : subscribeTopics) {
                 mqttClient.subscribe(subscribeTopic);
             }
-            mqttClient.setCallback(new SimpleMqttCallBack());
+            mqttClient.setCallback(callback);
         } catch (MqttException me) {
             System.out.println(String.format("Errorcode: %s, Message: %s", me.getReasonCode(), me.getMessage()));
         }

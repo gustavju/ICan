@@ -19,6 +19,10 @@ public class Trashcan {
         this.canStatus = canStatus;
     }
 
+    public CanStatus getStatus() {
+        return canStatus;
+    }
+
     public double getTemperature() {
         return temperatureSensor.getTemperature();
     }

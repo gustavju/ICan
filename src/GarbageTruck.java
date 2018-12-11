@@ -19,7 +19,8 @@ public class GarbageTruck {
         this.location = location;
         capacity = 0;
         String[] subs ={"Trash1","Trash2","Trash3","Central"};
-        mqttClient = new MQTTClient("GarbageTruck",subs);
+        SimpleMqttCallBack callback = new SimpleMqttCallBack();
+        mqttClient = new MQTTClient("GarbageTruck", callback, subs);
 
 
     }

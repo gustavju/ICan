@@ -17,7 +17,7 @@ public class TrashCanCallBack implements MqttCallback {
     public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
         message = new String(mqttMessage.getPayload());
         System.out.println("Message received:\n\t"+ message);
-
+        takeAction(message);
 
     }
 
