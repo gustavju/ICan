@@ -15,6 +15,10 @@ public class SimpleMqttCallBack  implements MqttCallback {
 
         }
 
+        public void handleMessage(){
+
+        }
+
         public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
             // not used in this example
         }
