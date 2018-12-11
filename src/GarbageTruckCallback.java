@@ -5,6 +5,10 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class GarbageTruckCallback implements MqttCallback {
     private GarbageTruck garbageTruck;
 
+    public GarbageTruckCallback(GarbageTruck garbageTruck) {
+        this.garbageTruck = garbageTruck;
+    }
+
     @Override
     public void connectionLost(Throwable throwable) {
 
@@ -17,6 +21,7 @@ public class GarbageTruckCallback implements MqttCallback {
         takeAction(message);
 
     }
+
     private void takeAction(String message) {
         switch (message) {
         }

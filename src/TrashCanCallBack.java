@@ -6,7 +6,7 @@ public class TrashCanCallBack implements MqttCallback {
     private Trashcan trashcan;
 
 
-    public TrashCanCallBack(Trashcan trashcan){
+    public TrashCanCallBack(Trashcan trashcan) {
         this.trashcan = trashcan;
     }
 
@@ -16,13 +16,13 @@ public class TrashCanCallBack implements MqttCallback {
 
     public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
         String message = new String(mqttMessage.getPayload());
-        System.out.println("Message received:\n\t"+ message);
+        System.out.println("Message received:\n\t" + message);
         takeAction(message);
 
     }
 
-    private void takeAction(String message){
-        switch (message){
+    private void takeAction(String message) {
+        switch (message) {
             case "booked":
                 trashcan.changeStatus(CanStatus.PICKUPPENDING);
                 System.out.println("Pickuppending");

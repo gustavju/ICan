@@ -5,6 +5,10 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class ServerCallback implements MqttCallback {
     private MainServer server;
 
+    public ServerCallback(MainServer server) {
+        this.server = server;
+    }
+
     @Override
     public void connectionLost(Throwable throwable) {
 
