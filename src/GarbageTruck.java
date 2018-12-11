@@ -9,16 +9,19 @@ public class GarbageTruck {
     private final double MAX_CAPACITY= 100;
     private List<Trashcan> route;
     private Location location;
-    private MainServer mainserver;
+    //private MainServer mainserver;
     private double capacity;
+    private MQTTClient mqttClient;
 
-
-    public GarbageTruck(double gasLevel, Location location, String host, String server, String pass ){
+    public GarbageTruck(double gasLevel, Location location){
 
         this.gasLevel = gasLevel;
         this.location = location;
         capacity = 0;
-        mainserver = new MainServer(host, server, pass);
+        String[] subs ={"Trash1","Trash2","Trash3","Central"};
+        mqttClient = new MQTTClient("GarbageTruck",subs);
+
+
     }
 
     public void setLocation(Location location){
@@ -48,6 +51,10 @@ public class GarbageTruck {
             capacity += trashcan.getLevel()/10;
         }
 
+    }
+
+    public void sendMessage(String message){
+        mqttClient.sendMessage("GarbageTruck",message);
     }
 
     public List<Trashcan> getRoute(){
