@@ -1,4 +1,4 @@
-public class Main {
+public class ServerMain {
 
     private void run() {
         Trashcan t1 = new Trashcan(new Location(59.406897, 17.944906));
@@ -12,6 +12,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        new Main().run();
+        new ServerMain().run();
     }
 }
