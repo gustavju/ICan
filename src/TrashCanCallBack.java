@@ -4,7 +4,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class TrashCanCallBack implements MqttCallback {
     private Trashcan trashcan;
-    private String message;
+
 
     public TrashCanCallBack(Trashcan trashcan){
         this.trashcan = trashcan;
@@ -15,7 +15,7 @@ public class TrashCanCallBack implements MqttCallback {
     }
 
     public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
-        message = new String(mqttMessage.getPayload());
+        String message = new String(mqttMessage.getPayload());
         System.out.println("Message received:\n\t"+ message);
         takeAction(message);
 
