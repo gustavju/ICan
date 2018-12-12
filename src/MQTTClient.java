@@ -52,6 +52,7 @@ public class MQTTClient {
         } catch (MqttException me) {
             System.out.println(String.format("Errorcode: %s, Message: %s", me.getReasonCode(), me.getMessage()));
         }
+        System.out.println("New mqttClient with id:" + mqttClient.getClientId());
         return mqttClient;
     }
 

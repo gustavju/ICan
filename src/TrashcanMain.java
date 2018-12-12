@@ -5,7 +5,7 @@ public class TrashcanMain {
 
     private void run(String clientId, double longitude, double latitude) {
         Trashcan trashcan = new Trashcan(new Location(longitude, latitude));
-        String[] subs = {clientId + "CanStatus"};
+        String[] subs = {clientId};
         MQTTClient mqttClient = new MQTTClient(clientId, new TrashCanCallBack(trashcan), subs);
 
 
@@ -16,7 +16,7 @@ public class TrashcanMain {
                 trashcan.addTrash();
                 mqttClient.sendMessage(clientId, "trashLevel:" + trashcan.getLevel());
                 trashcan.fakeTemperature();
-                mqttClient.sendMessage(clientId, "temperature" + trashcan.getTemperature());
+                mqttClient.sendMessage(clientId, "temperature:" + trashcan.getTemperature());
             }
         }, 0, 30000);
     }

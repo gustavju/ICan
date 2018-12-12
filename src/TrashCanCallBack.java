@@ -14,8 +14,7 @@ public class TrashCanCallBack implements MqttCallback {
         System.out.println("Connection to MQTT broker lost!");
     }
 
-    public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
-        System.out.println(s);
+    public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
         String message = new String(mqttMessage.getPayload());
         System.out.println("Message received:\n\t" + message);
         takeAction(message);
@@ -24,13 +23,20 @@ public class TrashCanCallBack implements MqttCallback {
 
     private void takeAction(String message) {
         switch (message) {
+            case "addTrash":
+                trashcan.addTrash();
+                break;
+            case "empty":
+                trashcan.empty();
+                break;
+            case "startTrashFire":
+                trashcan.startTrashFire();
+                break;
+            case "fakeTemperature":
+                trashcan.fakeTemperature();
+                break;
             case "booked":
                 trashcan.changeStatus(CanStatus.PICKUPPENDING);
-                System.out.println("Pickuppending");
-                break;
-            case "emptied":
-                trashcan.changeStatus(CanStatus.EMPTY);
-                System.out.println("Emptied");
                 break;
         }
     }
