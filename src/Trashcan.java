@@ -47,6 +47,7 @@ public class Trashcan {
 
     public void startTrashFire() {
         temperatureSensor.startTrashFire();
+
     }
 
     private void calculateCanStatus() {

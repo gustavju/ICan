@@ -27,6 +27,11 @@ public class TrashCanCallBack implements MqttCallback {
             case "booked":
                 trashcan.changeStatus(CanStatus.PICKUPPENDING);
                 System.out.println("Pickuppending");
+                break;
+            case "emptied":
+                trashcan.changeStatus(CanStatus.EMPTY);
+                System.out.println("Emptied");
+                break;
         }
     }
 
