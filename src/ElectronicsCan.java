@@ -3,7 +3,7 @@ public class ElectronicsCan extends Trashcan {
 
     @Override
     public String toString() {
-        return "ElectronicsCan{" +
+        return "{" +
                 "location=" + location +
                 ", trashcanId='" + trashcanId + '\'' +
                 '}';

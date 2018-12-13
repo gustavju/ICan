@@ -7,7 +7,7 @@ public class PaperCan extends Trashcan {
 
     @Override
     public String toString() {
-        return "PaperCan{" +
+        return "{" +
                 "location=" + location +
                 ", trashcanId='" + trashcanId + '\'' +
                 '}';

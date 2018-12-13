@@ -7,7 +7,7 @@ public class GlassCan extends Trashcan {
 
     @Override
     public String toString() {
-        return "GlassCan{" +
+        return "{" +
                 "location=" + location +
                 ", trashcanId='" + trashcanId + '\'' +
                 '}';

@@ -52,7 +52,7 @@ public class HouseholdCan extends Trashcan {
 
     @Override
     public String toString() {
-        return "HouseholdCan{" +
+        return "{" +
                 "location=" + location +
                 ", trashcanId='" + trashcanId + '\'' +
                 '}';
