@@ -1,21 +1,20 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class GarbageTruck {
 
-    private double gasLevel;
     private final double MAX_CAPACITY= 100;
     private List<String> route;
     private Location location;
-    //private MainServer mainserver;
     private double capacity;
     private MQTTClient mqttClient;
+    private String garbageTruckId;
 
-    public GarbageTruck(double gasLevel, Location location){
-
-        this.gasLevel = gasLevel;
+    public GarbageTruck(Location location){
+        garbageTruckId = UUID.randomUUID().toString();
         this.location = location;
         capacity = 0;
         String[] subs ={"Trash1","Trash2","Trash3","Central"};
@@ -54,8 +53,8 @@ public class GarbageTruck {
 
     }
 
-    public void sendMessage(String message){
-        mqttClient.sendMessage("GarbageTruck",message);
+    public void sendMessage(String topic,String message){
+        mqttClient.sendMessage(topic,message);
     }
 
     public List<String> getRoute(){
@@ -66,13 +65,10 @@ public class GarbageTruck {
         route.clear();
     }
 
-    public void fillTank(){
-        gasLevel = 100;
+    @Override
+    public String toString() {
+        return "GarbageTruck{" +
+            "garbageTruckId='" + garbageTruckId + '\'' +
+            '}';
     }
-
-    public double getGasLevel(){
-        return gasLevel;
-    }
-
-
 }

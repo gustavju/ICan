@@ -27,20 +27,8 @@ public class GarbageTruckCallback implements MqttCallback {
 
     private void takeAction(String topic, String message) {
         switch (topic) {
-            case "trashcan1":
-                switchTrashcan(message);
-                break;
-
-            case "trashcan2" :
-                switchTrashcan(message);
-                break;
-
-            case "trashcan3" :
-                switchTrashcan(message);
-                break;
-
-            case "server" :
-                switchServer(message);
+            case "garbageTruckDiscovery":
+                garbageTruck.sendMessage("discoveryGarbagetruckResponse",garbageTruck.toString());
                 break;
 
         }
