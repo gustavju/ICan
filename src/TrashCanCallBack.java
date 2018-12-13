@@ -36,7 +36,7 @@ public class TrashCanCallBack implements MqttCallback {
                 trashcan.startTrashFire();
                 break;
             case "fakeTemperature":
-                trashcan.fakeTemperature();
+                trashcan.readTemperature();
                 break;
             case "booked":
                 trashcan.changeStatus(CanStatus.PICKUPPENDING);

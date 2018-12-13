@@ -1,5 +1,8 @@
 public class GlassCan extends Trashcan {
-    private boolean flammable = false;
+
+    public GlassCan(Location location) {
+        super(location, false);
+    }
 
     @Override
     public void specificCalc() {

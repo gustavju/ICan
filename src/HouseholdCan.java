@@ -47,8 +47,10 @@ public class HouseholdCan extends Trashcan {
 
     @Override
     public void specificCalc() {
-
+        if (nonHygienic())
+            canStatus = CanStatus.NEEDPICKUP;
     }
+
 
     @Override
     public String toString() {

@@ -10,7 +10,7 @@ abstract public class Trashcan {
     protected CanStatus canStatus = CanStatus.EMPTY;
     private boolean flammable;
     protected MQTTClient mqttClient;
-
+    protected final int MAX_TEMPERATURE = 80;
 
 
     public Trashcan(Location location, boolean flammable) {
@@ -39,8 +39,10 @@ abstract public class Trashcan {
         return temperatureSensor.getTemperature();
     }
 
-    public void fakeTemperature() {
-        temperatureSensor.fakeTemperature();
+    public void readTemperature() {
+        temperatureSensor.readTemperature();
+        if (temperatureSensor.getTemperature() > MAX_TEMPERATURE && flammable)
+            canStatus = CanStatus.ONFIRE;
         if (this instanceof HouseholdCan) {
             HouseholdCan householdCan = (HouseholdCan) this;
             householdCan.addTemperature(temperatureSensor.getTemperature());
@@ -79,20 +81,23 @@ abstract public class Trashcan {
     abstract public String toString();
 
     private void calculateCanStatus() {
-        if (this instanceof HouseholdCan) {
-            HouseholdCan householdCan = (HouseholdCan) this;
-            if (householdCan.nonHygienic())
-                canStatus = CanStatus.NEEDPICKUP;
+        if (canStatus != CanStatus.ONFIRE) {
+            if (canStatus != CanStatus.NEEDPICKUP) {
+                specificCalc();
+                return;
+            }
+            double currentLevel = trashLevelSensor.getLevel();
+            if (currentLevel == 0) {
+                canStatus = CanStatus.EMPTY;
+            } else if (currentLevel < 90) {
+                canStatus = CanStatus.NORMAL;
+            } else {
+                canStatus = CanStatus.FULL;
+            }
         }
-        double currentLevel = trashLevelSensor.getLevel();
-        if (currentLevel == 0) {
-            canStatus = CanStatus.EMPTY;
-        } else if (currentLevel < 90) {
-            canStatus = CanStatus.NORMAL;
-        } else {
-            canStatus = CanStatus.FULL;
-        }
+
     }
+
 
     abstract public void specificCalc();
 
