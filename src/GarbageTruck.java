@@ -67,7 +67,7 @@ public class GarbageTruck {
 
     @Override
     public String toString() {
-        return "GarbageTruck{" +
+        return "{" +
             "garbageTruckId='" + garbageTruckId + '\'' +
             '}';
     }

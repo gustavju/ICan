@@ -1,12 +1,8 @@
-import jdk.nashorn.internal.parser.JSONParser;
-import jdk.nashorn.internal.runtime.JSONFunctions;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class ServerCallback implements MqttCallback {
     private MainServer server;
@@ -24,8 +20,10 @@ public class ServerCallback implements MqttCallback {
     public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
         String message = new String(mqttMessage.getPayload());
         switch (topic) {
-            case "discoveryResponse":
-                handleDiscoveryResponse(message);
+            case "trashcanDiscoveryResponse":
+                handleTrashcanDiscoveryResponse(message);
+            case "garbagetruckDiscoveryResponse":
+                handleGarbagetruckDiscoveryResponse(message);
             case "Trashcan1":
 
                 //switchTrashcan(message, trashcans.get(0));
@@ -42,7 +40,7 @@ public class ServerCallback implements MqttCallback {
         System.out.println("Message received:\n\t" + message);
     }
 
-    private void handleDiscoveryResponse(String message) {
+    private void handleTrashcanDiscoveryResponse(String message) {
         System.out.println(message.split("Message:")[1]);
         try {
             JSONObject trashcanJson = new JSONObject(message.split("Message:")[1]);
@@ -52,8 +50,24 @@ public class ServerCallback implements MqttCallback {
             );
             String trashCanId = trashcanJson.getString("trashcanId");
             TrashcanHistory trashcanHistory = new TrashcanHistory(trashCanId, location);
-            if (!server.trashcanHistories.contains(trashcanHistory))
+            if (!server.trashcanHistories.contains(trashcanHistory)) {
                 server.trashcanHistories.add(trashcanHistory);
+                server.mqttClient.subscribe(trashCanId);
+            }
+        } catch (JSONException ex) {
+            System.out.println("Message:" + ex.getMessage());
+        }
+    }
+
+    private void handleGarbagetruckDiscoveryResponse(String message) {
+        System.out.println(message.split("Message:")[1]);
+        try {
+            JSONObject garbagetruckJson = new JSONObject(message.split("Message:")[1]);
+            String garbagetruckId = garbagetruckJson.getString("garbagetruckId");
+            if (server.garbageTruckIds.contains(garbagetruckId)) {
+                server.garbageTruckIds.add(garbagetruckId);
+                server.mqttClient.subscribe(garbagetruckId);
+            }
         } catch (JSONException ex) {
             System.out.println("Message:" + ex.getMessage());
         }

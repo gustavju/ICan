@@ -44,10 +44,7 @@ public class MQTTClient {
         try {
             mqttClient = new MqttClient(broker, clientId, persistence);
             mqttClient.connect(connOpts);
-
-            for (String subscribeTopic : subscribeTopics) {
-                mqttClient.subscribe(subscribeTopic);
-            }
+            mqttClient.subscribe(subscribeTopics);
             mqttClient.setCallback(callback);
         } catch (MqttException me) {
             System.out.println(String.format("Errorcode: %s, Message: %s", me.getReasonCode(), me.getMessage()));
@@ -72,7 +69,7 @@ public class MQTTClient {
         }
     }
 
-    public void unsubscribe(String unsub){
+    public void unsubscribe(String unsub) {
         try {
             mqttClient.unsubscribe(unsub);
         } catch (MqttException me) {
