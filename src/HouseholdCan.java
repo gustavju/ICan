@@ -44,4 +44,9 @@ public class HouseholdCan extends Trashcan {
         }
         return sum / temperaturesSincePickup.size();
     }
+
+    @Override
+    public void specificCalc() {
+
+    }
 }

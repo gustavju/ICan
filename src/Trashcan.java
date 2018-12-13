@@ -1,4 +1,4 @@
-public class Trashcan {
+abstract public class Trashcan {
 
     private Location location;
     protected TrashLevelSensor trashLevelSensor;
@@ -6,6 +6,7 @@ public class Trashcan {
     private final int MAX_CAPACITY = 100;
     protected CanStatus canStatus = CanStatus.EMPTY;
     private boolean flammable;
+    private String trashcanId;
 
 
     public Trashcan(Location location, boolean flammable) {
@@ -17,7 +18,6 @@ public class Trashcan {
 
     public Trashcan() {
     }
-
 
     public void changeStatus(CanStatus canStatus) {
         this.canStatus = canStatus;
@@ -62,6 +62,10 @@ public class Trashcan {
 
     }
 
+    public String getTrashcanId() {
+        return trashcanId;
+    }
+
     private void calculateCanStatus() {
         if (this instanceof HouseholdCan) {
             HouseholdCan householdCan = (HouseholdCan) this;
@@ -77,5 +81,8 @@ public class Trashcan {
             canStatus = CanStatus.FULL;
         }
     }
+
+    abstract public void specificCalc();
+
 
 }
