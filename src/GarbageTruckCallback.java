@@ -18,6 +18,9 @@ public class GarbageTruckCallback implements MqttCallback {
     public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
         String message = new String(mqttMessage.getPayload());
         System.out.println("Message received:\n\t" + message);
+        for(int i;i<garbageTruck.getRoute();i++){
+
+        }
         takeAction(topic, message);
 
     }
@@ -25,15 +28,15 @@ public class GarbageTruckCallback implements MqttCallback {
     private void takeAction(String topic, String message) {
         switch (topic) {
             case "trashcan1":
-                switchTrashcan1(message);
+                switchTrashcan(message);
                 break;
 
             case "trashcan2" :
-                switchTrashcan1(message);
+                switchTrashcan(message);
                 break;
 
             case "trashcan3" :
-                switchTrashcan1(message);
+                switchTrashcan(message);
                 break;
 
             case "server" :
@@ -43,32 +46,17 @@ public class GarbageTruckCallback implements MqttCallback {
         }
     }
 
-    private void switchTrashcan1(String message){
+    private void switchTrashcan(String message){
         switch(message.split(":")[0]){
             case "temperature":
                 break;
             case "trashlevel" :
+                break;
+            case "canStatus" :
                 break;
         }
     }
 
-    private void switchTrashcan2(String message){
-        switch(message.split(":")[0]){
-            case "temperature":
-                break;
-            case "trashlevel" :
-                break;
-        }
-    }
-
-    private void switchTrashcan3(String message){
-        switch(message.split(":")[0]){
-            case "temperature":
-                break;
-            case "trashlevel" :
-                break;
-        }
-    }
 
     private void switchServer(String message){
         switch(message.split(":")[0]){
@@ -76,6 +64,7 @@ public class GarbageTruckCallback implements MqttCallback {
                 break;
             case "trashlevel" :
                 break;
+
         }
     }
 

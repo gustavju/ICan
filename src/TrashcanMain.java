@@ -4,7 +4,7 @@ import java.util.TimerTask;
 public class TrashcanMain {
 
     private void run(String clientId, double longitude, double latitude) {
-        Trashcan trashcan = new Trashcan(new Location(longitude, latitude));
+        Trashcan trashcan = new Trashcan(new Location(longitude, latitude),false);
         String[] subs = {clientId};
         MQTTClient mqttClient = new MQTTClient(clientId, new TrashCanCallBack(trashcan), subs);
 
@@ -26,7 +26,7 @@ public class TrashcanMain {
         double longitude;
         double latitude;
         if (args.length == 0) {
-            clientId = "client1";
+            clientId = "trashcan1";
             longitude = 0.2;
             latitude = 0.2;
         } else {

@@ -7,7 +7,7 @@ public class GarbageTruck {
 
     private double gasLevel;
     private final double MAX_CAPACITY= 100;
-    private List<Trashcan> route;
+    private List<String> route;
     private Location location;
     //private MainServer mainserver;
     private double capacity;
@@ -36,7 +36,7 @@ public class GarbageTruck {
             return;
         }
 
-        route.add(trashcan);
+        route.add(trashcan.getTrashcanId());
         trashcan.changeStatus(CanStatus.PICKUPPENDING);
     }
 
@@ -58,7 +58,7 @@ public class GarbageTruck {
         mqttClient.sendMessage("GarbageTruck",message);
     }
 
-    public List<Trashcan> getRoute(){
+    public List<String> getRoute(){
         return route;
     }
 

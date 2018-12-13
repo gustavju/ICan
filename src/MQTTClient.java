@@ -56,6 +56,22 @@ public class MQTTClient {
         return mqttClient;
     }
 
+    public void subscribe(String sub) {
+        try {
+            mqttClient.subscribe(sub);
+        } catch (MqttException me) {
+            System.out.println(String.format("Errorcode: %s, Message: %s", me.getReasonCode(), me.getMessage()));
+        }
+    }
+
+    public void subscribe(String[] sub) {
+        try {
+            mqttClient.subscribe(sub);
+        } catch (MqttException me) {
+            System.out.println(String.format("Errorcode: %s, Message: %s", me.getReasonCode(), me.getMessage()));
+        }
+    }
+
     private Properties loadMQTTProperties() {
         String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         String configPath = rootPath + "settings.properties";
