@@ -43,21 +43,20 @@ public class ServerCallback implements MqttCallback {
     }
 
     private void handleDiscoveryResponse(String message) {
-        System.out.println(message);
+        System.out.println(message.split("Message:")[1]);
         try {
-            JSONObject trashcanJson = new JSONObject(message);
+            JSONObject trashcanJson = new JSONObject(message.split("Message:")[1]);
             Location location = new Location(
-                    trashcanJson.getJSONObject("Location").getDouble("longitude"),
-                    trashcanJson.getJSONObject("Location").getDouble("latitude")
+                    trashcanJson.getJSONObject("location").getDouble("longitude"),
+                    trashcanJson.getJSONObject("location").getDouble("latitude")
             );
             String trashCanId = trashcanJson.getString("trashcanId");
-            System.out.println(location + " : " + trashCanId);
+            TrashcanHistory trashcanHistory = new TrashcanHistory(trashCanId, location);
+            if (!server.trashcanHistories.contains(trashcanHistory))
+                server.trashcanHistories.add(trashcanHistory);
         } catch (JSONException ex) {
             System.out.println("Message:" + ex.getMessage());
         }
-        // Trashcan{location=Location{longitude=0.2, latitude=0.2}, trashcanId='71b80dfe-ef58-4759-b095-c1fe02f27998'}
-
-
     }
 
     private void switchTrashcan(String message, Trashcan trashcan) {

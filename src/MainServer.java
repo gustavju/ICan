@@ -6,7 +6,7 @@ public class MainServer {
     private String serverName;
     private String password;
     protected MQTTClient mqttClient;
-    private ArrayList<Trashcan> trashcans;
+    protected ArrayList<TrashcanHistory> trashcanHistories;
 
     public MainServer(String host, String server, String pass) {
         hostName = host;
