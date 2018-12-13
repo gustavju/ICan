@@ -1,7 +1,7 @@
 public class GarbageTruckMain {
 
     private void run(String clientId, double longitude, double latitude) {
-        GarbageTruck garbageTruck = new GarbageTruck(100, new Location(longitude, latitude));
+        GarbageTruck garbageTruck = new GarbageTruck(new Location(longitude, latitude));
         String[] subs = {clientId, "client2", "client3", "server"};
         MQTTClient mqttClient = new MQTTClient("GarbageTruck", new GarbageTruckCallback(garbageTruck), subs);
 
