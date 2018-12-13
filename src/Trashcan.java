@@ -2,14 +2,15 @@ import java.util.UUID;
 
 abstract public class Trashcan {
 
-    private Location location;
-    private String trashcanId;
+    protected Location location;
+    protected String trashcanId;
     protected TrashLevelSensor trashLevelSensor;
     protected TemperatureSensor temperatureSensor;
     private final int MAX_CAPACITY = 100;
     protected CanStatus canStatus = CanStatus.EMPTY;
     private boolean flammable;
     protected MQTTClient mqttClient;
+
 
 
     public Trashcan(Location location, boolean flammable) {
@@ -46,6 +47,7 @@ abstract public class Trashcan {
         }
     }
 
+
     public double getLevel() {
         return trashLevelSensor.getLevel();
     }
@@ -74,12 +76,7 @@ abstract public class Trashcan {
     }
 
     @Override
-    public String toString() {
-        return "Trashcan{" +
-                "location=" + location +
-                ", trashcanId='" + trashcanId + '\'' +
-                '}';
-    }
+    abstract public String toString();
 
     private void calculateCanStatus() {
         if (this instanceof HouseholdCan) {

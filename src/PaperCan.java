@@ -3,4 +3,13 @@ public class PaperCan extends Trashcan {
     public void specificCalc() {
 
     }
+
+
+    @Override
+    public String toString() {
+        return "PaperCan{" +
+                "location=" + location +
+                ", trashcanId='" + trashcanId + '\'' +
+                '}';
+    }
 }

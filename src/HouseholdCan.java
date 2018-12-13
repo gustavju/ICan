@@ -49,4 +49,12 @@ public class HouseholdCan extends Trashcan {
     public void specificCalc() {
 
     }
+
+    @Override
+    public String toString() {
+        return "HouseholdCan{" +
+                "location=" + location +
+                ", trashcanId='" + trashcanId + '\'' +
+                '}';
+    }
 }
