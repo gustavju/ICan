@@ -19,9 +19,9 @@ abstract public class Trashcan {
         temperatureSensor = new TemperatureSensor("Id", 10);
         trashLevelSensor = new TrashLevelSensor("Id", 10, MAX_CAPACITY);
         this.flammable = flammable;
-        String[] subs = {trashcanId, "discovery"};
+        String[] subs = {trashcanId, "trashcanDiscovery"};
         mqttClient = new MQTTClient(trashcanId, new TrashCanCallBack(this), subs);
-        mqttClient.sendMessage("discoveryResponse", this.toString());
+        mqttClient.sendMessage("trashcanDiscoveryResponse", this.toString());
     }
 
     public Trashcan() {

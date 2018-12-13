@@ -10,22 +10,25 @@ public class GarbageTruck {
     private List<String> route;
     private Location location;
     private double capacity;
-    private MQTTClient mqttClient;
+    protected MQTTClient mqttClient;
     private String garbageTruckId;
 
     public GarbageTruck(Location location){
         garbageTruckId = UUID.randomUUID().toString();
         this.location = location;
         capacity = 0;
-        String[] subs ={"Trash1","Trash2","Trash3","Central"};
-        SimpleMqttCallBack callback = new SimpleMqttCallBack();
-        mqttClient = new MQTTClient("GarbageTruck", callback, subs);
-
-
+        String[] subs ={garbageTruckId,"garbagetruckDiscovery"};
+        mqttClient = new MQTTClient(garbageTruckId, new GarbageTruckCallback(this), subs);
+        mqttClient.sendMessage("garbagetruckDiscovery",this.toString());
+        route = new ArrayList<String>();
     }
 
     public void setLocation(Location location){
         this.location=location;
+    }
+
+    public void addTrashcan(String trashcanID){
+        route.add(trashcanID);
     }
 
     public void setRoute(Trashcan trashcan){
@@ -53,9 +56,11 @@ public class GarbageTruck {
 
     }
 
-    public void sendMessage(String topic,String message){
-        mqttClient.sendMessage(topic,message);
+    public String getGarbageTruckId(){
+        return garbageTruckId;
     }
+
+
 
     public List<String> getRoute(){
         return route;
@@ -68,7 +73,7 @@ public class GarbageTruck {
     @Override
     public String toString() {
         return "{" +
-            "garbageTruckId='" + garbageTruckId + '\'' +
+            "garbageTruckId="+ garbageTruckId +
             '}';
     }
 }
