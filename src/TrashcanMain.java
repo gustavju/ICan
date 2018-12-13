@@ -11,10 +11,10 @@ public class TrashcanMain {
             public void run() {
                 trashcan.addTrash();
                 trashcan.mqttClient.sendMessage(clientId, "trashLevel:" + trashcan.getLevel());
-                trashcan.fakeTemperature();
+                trashcan.readTemperature();
                 trashcan.mqttClient.sendMessage(clientId, "temperature:" + trashcan.getTemperature());
             }
-        }, 0, 30000);
+        }, 0, 20000);
     }
 
     public static void main(String[] args) {

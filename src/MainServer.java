@@ -9,7 +9,7 @@ public class MainServer {
     public MainServer() {
         trashcanHistories = new ArrayList<TrashcanHistory>();
         garbageTruckIds = new ArrayList<String>();
-        String[] subs = {"discoveryTrashcanResponse", "discoveryGarbagetruckResponse"};
+        String[] subs = {"trashcanDiscoveryResponse", "garbagetruckDiscoveryResponse"};
         mqttClient = new MQTTClient("server", new ServerCallback(this), subs);
     }
 }

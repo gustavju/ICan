@@ -15,6 +15,10 @@ public class TrashcanHistory {
         history.add(trashcanHistoryEntry);
     }
 
+    public String getTrashcanId() {
+        return trashcanId;
+    }
+
     @Override
     public String toString() {
         return "TrashcanHistory{" +

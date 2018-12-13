@@ -19,13 +19,13 @@ public class ServerCallback implements MqttCallback {
     @Override
     public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
         String message = new String(mqttMessage.getPayload());
+        System.out.println(message);
         switch (topic) {
             case "trashcanDiscoveryResponse":
                 handleTrashcanDiscoveryResponse(message);
             case "garbagetruckDiscoveryResponse":
                 handleGarbagetruckDiscoveryResponse(message);
             case "Trashcan1":
-
                 //switchTrashcan(message, trashcans.get(0));
                 break;
             case "Trashcan2":
@@ -63,8 +63,8 @@ public class ServerCallback implements MqttCallback {
         System.out.println(message.split("Message:")[1]);
         try {
             JSONObject garbagetruckJson = new JSONObject(message.split("Message:")[1]);
-            String garbagetruckId = garbagetruckJson.getString("garbagetruckId");
-            if (server.garbageTruckIds.contains(garbagetruckId)) {
+            String garbagetruckId = garbagetruckJson.getString("garbageTruckId");
+            if (!server.garbageTruckIds.contains(garbagetruckId)) {
                 server.garbageTruckIds.add(garbagetruckId);
                 server.mqttClient.subscribe(garbagetruckId);
             }
