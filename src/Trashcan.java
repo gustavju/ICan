@@ -11,7 +11,7 @@ public class Trashcan {
     public Trashcan(Location location, boolean flammable) {
         this.location = location;
         temperatureSensor = new TemperatureSensor("Id", 10);
-        trashLevelSensor = new TrashLevelSensor("Id", 10);
+        trashLevelSensor = new TrashLevelSensor("Id", 10, MAX_CAPACITY);
         this.flammable = flammable;
     }
 

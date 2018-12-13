@@ -28,7 +28,6 @@ public class HouseholdCan extends Trashcan {
         temperaturesSincePickup.add(temperature);
     }
 
-
     public void updatePickup() {
         this.lastPickup = new Date();
         temperaturesSincePickup.clear();
