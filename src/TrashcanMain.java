@@ -4,19 +4,15 @@ import java.util.TimerTask;
 public class TrashcanMain {
 
     private void run(String clientId, double longitude, double latitude) {
-        Trashcan trashcan = new Trashcan(new Location(longitude, latitude),false);
-        String[] subs = {clientId};
-        MQTTClient mqttClient = new MQTTClient(clientId, new TrashCanCallBack(trashcan), subs);
-
-
+        HouseholdCan trashcan = new HouseholdCan(new Location(longitude, latitude));
         // fake sensor changes
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 trashcan.addTrash();
-                mqttClient.sendMessage(clientId, "trashLevel:" + trashcan.getLevel());
+                trashcan.mqttClient.sendMessage(clientId, "trashLevel:" + trashcan.getLevel());
                 trashcan.fakeTemperature();
-                mqttClient.sendMessage(clientId, "temperature:" + trashcan.getTemperature());
+                trashcan.mqttClient.sendMessage(clientId, "temperature:" + trashcan.getTemperature());
             }
         }, 0, 30000);
     }

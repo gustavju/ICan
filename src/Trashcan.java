@@ -1,19 +1,26 @@
+import java.util.UUID;
+
 abstract public class Trashcan {
 
     private Location location;
+    private String trashcanId;
     protected TrashLevelSensor trashLevelSensor;
     protected TemperatureSensor temperatureSensor;
     private final int MAX_CAPACITY = 100;
     protected CanStatus canStatus = CanStatus.EMPTY;
     private boolean flammable;
-    private String trashcanId;
+    protected MQTTClient mqttClient;
 
 
     public Trashcan(Location location, boolean flammable) {
+        trashcanId = UUID.randomUUID().toString();
         this.location = location;
         temperatureSensor = new TemperatureSensor("Id", 10);
         trashLevelSensor = new TrashLevelSensor("Id", 10, MAX_CAPACITY);
         this.flammable = flammable;
+        String[] subs = {trashcanId, "discovery"};
+        mqttClient = new MQTTClient(trashcanId, new TrashCanCallBack(this), subs);
+        mqttClient.sendMessage("discoveryResponse", this.toString());
     }
 
     public Trashcan() {
@@ -64,6 +71,14 @@ abstract public class Trashcan {
 
     public String getTrashcanId() {
         return trashcanId;
+    }
+
+    @Override
+    public String toString() {
+        return "Trashcan{" +
+                "location=" + location +
+                ", trashcanId='" + trashcanId + '\'' +
+                '}';
     }
 
     private void calculateCanStatus() {
