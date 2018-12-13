@@ -18,7 +18,7 @@ public class GarbageTruckCallback implements MqttCallback {
     public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
         String message = new String(mqttMessage.getPayload());
         System.out.println("Message received:\n\t" + message);
-        for(int i;i<garbageTruck.getRoute();i++){
+        for(int i=0;i<garbageTruck.getRoute().size();i++){
 
         }
         takeAction(topic, message);

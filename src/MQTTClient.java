@@ -72,6 +72,14 @@ public class MQTTClient {
         }
     }
 
+    public void unsubscribe(String unsub){
+        try {
+            mqttClient.unsubscribe(unsub);
+        } catch (MqttException me) {
+            System.out.println(String.format("Errorcode: %s, Message: %s", me.getReasonCode(), me.getMessage()));
+        }
+    }
+
     private Properties loadMQTTProperties() {
         String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         String configPath = rootPath + "settings.properties";
