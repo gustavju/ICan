@@ -24,8 +24,8 @@ public class MQTTClient {
     }
 
     public void sendMessage(String topic, String content) {
-        String con = String.format("clientId:%s, Message:%s", clientId, content);
-        MqttMessage message = new MqttMessage(con.getBytes());
+        //String con = String.format(clientId, content);
+        MqttMessage message = new MqttMessage(content.getBytes());
         message.setQos(qos);
         try {
             mqttClient.publish(topic, message);
