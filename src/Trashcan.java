@@ -84,6 +84,10 @@ abstract public class Trashcan {
         return "{ \"temperature\":\"" + getTemperature() + "\", \"trashLevel\": \"" + getLevel() + "\", \"canStatus\":\"" + getStatus() + "\"}";
     }
 
+    public String toJSON() {
+        return "{ \"trashcanId\": \"" + trashcanId + "\", \"location\": " + location.toJSON() + " }";
+    }
+
     private void calculateCanStatus() {
         if (canStatus != CanStatus.ONFIRE) {
             if (canStatus != CanStatus.NEEDPICKUP) {

@@ -41,9 +41,9 @@ public class ServerCallback implements MqttCallback {
     }
 
     private void handleTrashcanDiscoveryResponse(String message) {
-        System.out.println(message.split("Message:")[1]);
+        System.out.println(message);
         try {
-            JSONObject trashcanJson = new JSONObject(message.split("Message:")[1]);
+            JSONObject trashcanJson = new JSONObject(message);
             Location location = new Location(
                     trashcanJson.getJSONObject("location").getDouble("longitude"),
                     trashcanJson.getJSONObject("location").getDouble("latitude")
@@ -60,9 +60,9 @@ public class ServerCallback implements MqttCallback {
     }
 
     private void handleGarbagetruckDiscoveryResponse(String message) {
-        System.out.println(message.split("Message:")[1]);
+        System.out.println(message);
         try {
-            JSONObject garbagetruckJson = new JSONObject(message.split("Message:")[1]);
+            JSONObject garbagetruckJson = new JSONObject(message);
             String garbagetruckId = garbagetruckJson.getString("garbageTruckId");
             if (!server.garbageTruckIds.contains(garbagetruckId)) {
                 server.garbageTruckIds.add(garbagetruckId);
