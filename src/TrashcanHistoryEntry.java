@@ -22,4 +22,13 @@ public class TrashcanHistoryEntry {
                 ", lastEmptied=" + lastEmptied +
                 '}';
     }
+
+    public String toJSON() {
+        return "{" +
+                "\"timestamp\":\"" + timestamp +
+                "\", \"temperature\":\"" + temperature +
+                "\", \"trashLevel\":\"" + trashLevel +
+                "\", \"lastEmptied\":\"" + lastEmptied +
+                "\"}";
+    }
 }

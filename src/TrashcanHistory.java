@@ -19,6 +19,13 @@ public class TrashcanHistory {
         return trashcanId;
     }
 
+    public String toJSON() {
+        if (history.size() == 0)
+            return "{ \"trashcanId\": \"" + trashcanId + "\", \"location\": \"" + location.toJSON() + "\"}";
+        else
+            return "{ \"trashcanId\": \"" + trashcanId + "\", \"location\": \"" + location.toJSON() + "\", \"TrashcanHistoryEntry\":\"" + history.get(history.size()).toJSON() + "\"}";
+    }
+
     @Override
     public String toString() {
         return "TrashcanHistory{" +

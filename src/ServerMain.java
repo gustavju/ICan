@@ -27,26 +27,15 @@ public class ServerMain {
         */
         try {
             HttpServer webServer = HttpServer.create(new InetSocketAddress(8500), 0);
-            HttpContext context = webServer.createContext("/");
-            context.setHandler(ServerMain::handleRequest);
-            HttpContext trashContext = webServer.createContext("/trash");
-            trashContext.setHandler(ServerMain::handleTrashRequest);
             HttpContext emptyContext = webServer.createContext("/empty");
             emptyContext.setHandler(new HandleTrashRequest(server));
+            HttpContext getTrashcansContext = webServer.createContext("/getTrashcans");
+            getTrashcansContext.setHandler(new HandleGetTrashcansRequest(server));
             webServer.start();
         } catch (Exception ex) {
             System.out.println(ex);
         }
     }
-
-    private static void handleRequest(HttpExchange exchange) throws IOException {
-        String response = "Hello There!";
-        exchange.sendResponseHeaders(200, response.getBytes().length);//response code and length
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
-    }
-
 
     public static void main(String[] args) {
         new ServerMain().run();
@@ -65,6 +54,21 @@ class HandleTrashRequest implements HttpHandler {
         Map<String, String> query = queryToMap(exchange.getRequestURI().getQuery());
         String command = query.get("command");
         String id = query.get("id");
+        System.out.println(command + ":" + id);
+        switch (command) {
+            case "empty":
+                server.mqttClient.sendMessage(id, "empty");
+                break;
+            case "addTrash":
+                server.mqttClient.sendMessage(id, "addTrash");
+                break;
+            case "startTrashFire":
+                server.mqttClient.sendMessage(id, "startTrashFire");
+                break;
+            case "booked":
+                server.mqttClient.sendMessage(id, "booked");
+                break;
+        }
         server.mqttClient.sendMessage("pi", "hej");
         String response = "{ \"trashcans\": [{ \"id\":\"\", \"location\": {\"long\":\"\", \"lat\":\"\"}}] }";
         exchange.getResponseHeaders().set("Content-Type", "appication/json; charset=UTF-8");
@@ -89,6 +93,23 @@ class HandleTrashRequest implements HttpHandler {
     }
 }
 
+class HandleGetTrashcansRequest implements HttpHandler {
+    MainServer server;
+
+    HandleGetTrashcansRequest(MainServer server) {
+        this.server = server;
+    }
+
+    @Override
+    public void handle(HttpExchange exchange) throws IOException {
+        String response = server.getTrashcanJSON();
+        exchange.getResponseHeaders().set("Content-Type", "appication/json; charset=UTF-8");
+        exchange.sendResponseHeaders(200, response.getBytes().length);//response code and length
+        OutputStream os = exchange.getResponseBody();
+        os.write(response.getBytes());
+        os.close();
+    }
+}
 
 
 
