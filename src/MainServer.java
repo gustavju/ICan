@@ -15,14 +15,15 @@ public class MainServer {
     }
 
     public String getTrashcanJSON() {
-        String trashcans = "[]";
+        String trashcans = "[";
         for (int i = 0; i < trashcanHistories.size(); i++) {
             trashcans += trashcanHistories.get(i).toJSON();
             if (i != trashcanHistories.size() - 1) {
                 trashcans += ",";
             }
         }
-        return trashcans;
+        System.out.println(trashcans);
+        return trashcans + "]";
     }
 
 }

@@ -17,7 +17,7 @@ public class Location {
     }
 
     public String toJSON(){
-        return "{"+"\"longitude\":"+longitude+"\"latitude\""+latitude+"}";
+        return "{" + "\"longitude\":\"" + longitude + "\",\"latitude\":\"" + latitude + "\"}";
 
 
     }
