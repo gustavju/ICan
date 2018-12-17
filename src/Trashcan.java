@@ -80,6 +80,10 @@ abstract public class Trashcan {
     @Override
     abstract public String toString();
 
+    public String trashcanHistoryEntryJSON() {
+        return "{ \"temperature\":\"" + getTemperature() + "\", \"trashLevel\": \"" + getLevel() + "\", \"canStatus\":\"" + getStatus() + "\"}";
+    }
+
     private void calculateCanStatus() {
         if (canStatus != CanStatus.ONFIRE) {
             if (canStatus != CanStatus.NEEDPICKUP) {

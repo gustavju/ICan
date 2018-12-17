@@ -69,8 +69,7 @@ class HandleTrashRequest implements HttpHandler {
                 server.mqttClient.sendMessage(id, "booked");
                 break;
         }
-        server.mqttClient.sendMessage("pi", "hej");
-        String response = "{ \"trashcans\": [{ \"id\":\"\", \"location\": {\"long\":\"\", \"lat\":\"\"}}] }";
+        String response = "";
         exchange.getResponseHeaders().set("Content-Type", "appication/json; charset=UTF-8");
         exchange.sendResponseHeaders(200, response.getBytes().length);//response code and length
         OutputStream os = exchange.getResponseBody();
