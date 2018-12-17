@@ -6,6 +6,8 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ServerMain {
 
@@ -68,6 +70,9 @@ class HandleTrashRequest implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        Map<String, String> query = queryToMap(exchange.getRequestURI().getQuery());
+        String command = query.get("command");
+        String id = query.get("id");
         server.mqttClient.sendMessage("pi", "hej");
         String response = "{ \"trashcans\": [{ \"id\":\"\", \"location\": {\"long\":\"\", \"lat\":\"\"}}] }";
         exchange.getResponseHeaders().set("Content-Type", "appication/json; charset=UTF-8");
@@ -76,4 +81,30 @@ class HandleTrashRequest implements HttpHandler {
         os.write(response.getBytes());
         os.close();
     }
+
+
+    public Map<String, String> queryToMap(String query) {
+        Map<String, String> result = new HashMap<>();
+        for (String param : query.split("&")) {
+            String[] entry = param.split("=");
+            if (entry.length > 1) {
+                result.put(entry[0], entry[1]);
+            } else {
+                result.put(entry[0], "");
+            }
+        }
+        return result;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
