@@ -47,14 +47,6 @@ public class ServerMain {
         os.close();
     }
 
-    private static void handleTrashRequest(HttpExchange exchange) throws IOException {
-        String response = "{ \"trashcans\": [{ \"id\":\"\", \"location\": {\"long\":\"\", \"lat\":\"\"}}] }";
-        exchange.getResponseHeaders().set("Content-Type", "appication/json; charset=UTF-8");
-        exchange.sendResponseHeaders(200, response.getBytes().length);//response code and length
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
-    }
 
     public static void main(String[] args) {
         new ServerMain().run();
