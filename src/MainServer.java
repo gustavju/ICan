@@ -11,5 +11,6 @@ public class MainServer {
         garbageTruckIds = new ArrayList<String>();
         String[] subs = {"trashcanDiscoveryResponse", "garbagetruckDiscoveryResponse"};
         mqttClient = new MQTTClient("server", new ServerCallback(this), subs);
+
     }
 }

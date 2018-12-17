@@ -16,6 +16,12 @@ public class Location {
                 '}';
     }
 
+    public String toJSON(){
+        return "{"+"\"longitude\":"+longitude+"\"latitude\""+latitude+"}";
+
+
+    }
+
     public double getLongitude() {
         return longitude;
     }
