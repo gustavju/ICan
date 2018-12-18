@@ -12,6 +12,7 @@ public class HouseholdCan extends Trashcan {
     public HouseholdCan(Location location) {
         super(location, true);
         temperaturesSincePickup = new ArrayList<>();
+        lastPickup = new Date();
     }
 
     private double calculateHygieneLevel() {
