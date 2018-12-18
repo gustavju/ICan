@@ -2,6 +2,8 @@ import java.util.Random;
 
 public class TemperatureSensor extends Sensor {
 
+    private static Random rand = new Random();
+
     private double temperature;
 
     TemperatureSensor(String Id, double temperature) {
@@ -14,9 +16,8 @@ public class TemperatureSensor extends Sensor {
     }
 
     public void readTemperature() {
-        Random rand = new Random();
-        int temp = 1 + rand.nextInt(60) - 30;
-        temperature = temp;
+        rand = new Random();
+        temperature += 1 + rand.nextInt(4) - 2;
     }
 
     public void startTrashFire() {
