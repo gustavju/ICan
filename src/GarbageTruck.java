@@ -42,16 +42,16 @@ public class GarbageTruck {
         trashcan.changeStatus(CanStatus.PICKUPPENDING);
     }
 
-    public void fillTruck(Trashcan trashcan) {
-        if ((capacity + trashcan.getLevel() / 10) > MAX_CAPACITY) {
-            System.out.println("Error: Garbage Truck is Full");
+    public void fillTruck(double trashLevel) {
+        if ((capacity + trashLevel / 10) > MAX_CAPACITY) {
+            mqttClient.sendMessage(garbageTruckId,"Warning: Garbage Truck is FULL");
         }
 
-        if ((capacity + trashcan.getLevel() / 10) > MAX_CAPACITY * 0.9) {
-            System.out.println("Warning: Garbage Truck almost Full");
-            capacity += trashcan.getLevel() / 10;
+        if ((capacity + trashLevel / 10) > MAX_CAPACITY * 0.9) {
+           mqttClient.sendMessage(garbageTruckId,"Warning: Garbage Truck almost Full");
+            capacity += trashLevel / 10;
         } else {
-            capacity += trashcan.getLevel() / 10;
+            capacity += trashLevel / 10;
         }
 
     }
@@ -72,10 +72,20 @@ public class GarbageTruck {
         return route;
     }
 
-    public void emptyTruck() {
-        route.clear();
-    }
+    /*public void emptyTruck() {
 
+        route.clear();
+    }*/
+
+    public void emptyTrashcan(String id){
+        if(route.contains(id)){
+            mqttClient.sendMessage(id,"empty");
+            //Koppla så att Trucken fylls med det som finns i soptunnan.
+
+
+            route.remove(id);
+        }
+    }
     @Override
     public String toString() {
         return "{" +
