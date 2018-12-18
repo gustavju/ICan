@@ -1,3 +1,6 @@
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Date;
 
 public class TrashcanHistoryEntry {
@@ -12,6 +15,17 @@ public class TrashcanHistoryEntry {
         this.temperature = temperature;
         this.trashLevel = trashLevel;
         this.lastEmptied = lastEmptied;
+    }
+
+    public TrashcanHistoryEntry(JSONObject Job){
+        this.timestamp = new Date();
+        try {
+            this.temperature = Job.getDouble("temperature");
+            this.trashLevel = Job.getDouble("trashLevel");
+            this.canStatus = canStatus.valueOf(Job.getString("canStatus"));
+        }catch( JSONException ex){
+            System.out.println(ex.toString());
+        }
     }
 
     @Override

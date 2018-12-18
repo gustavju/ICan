@@ -15,4 +15,6 @@ public class GlassCan extends Trashcan {
                 ", trashcanId='" + trashcanId + '\'' +
                 '}';
     }
+
+
 }
