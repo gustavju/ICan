@@ -16,7 +16,6 @@ public class TemperatureSensor extends Sensor {
     }
 
     public void readTemperature() {
-        rand = new Random();
         temperature += 1 + rand.nextInt(4) - 2;
     }
 
