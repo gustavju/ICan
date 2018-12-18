@@ -22,6 +22,7 @@ public class TrashcanHistoryEntry {
         try {
             this.temperature = Job.getDouble("temperature");
             this.trashLevel = Job.getDouble("trashLevel");
+            this.lastEmptied = new Date(Job.getString("lastEmptied"));
             this.canStatus = canStatus.valueOf(Job.getString("canStatus"));
         }catch( JSONException ex){
             System.out.println(ex.toString());

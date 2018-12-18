@@ -21,7 +21,7 @@ public class ServerCallback implements MqttCallback {
     @Override
     public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
         String message = new String(mqttMessage.getPayload());
-        System.out.println(message);
+        System.out.println("Message Arrived:" + message);
         switch (topic) {
             case "trashcanDiscoveryResponse":
                 handleTrashcanDiscoveryResponse(message);
@@ -30,10 +30,14 @@ public class ServerCallback implements MqttCallback {
                 handleGarbagetruckDiscoveryResponse(message);
                 break;
             default:
+                if (message.equals("getHistoryEntry")) {
+                    break;
+                }
                 JSONObject jsonMessage = new JSONObject(message);
                 if (jsonMessage.getString("action").equals("getHistoryEntryResponse")) {
                     TrashcanHistoryEntry trashcanHistoryEntry = new TrashcanHistoryEntry(jsonMessage.getJSONObject("data"));
-                    server.getTrashcanHistoryById(topic).addEntry(trashcanHistoryEntry);
+                    TrashcanHistory trashcanHistory = server.getTrashcanHistoryById(topic);
+                    trashcanHistory.addEntry(trashcanHistoryEntry);
                     System.out.println(message);
                 }
                 break;

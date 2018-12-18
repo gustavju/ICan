@@ -5,6 +5,7 @@ public class TrashcanMain {
 
     private void run(double longitude, double latitude) {
         HouseholdCan trashcan = new HouseholdCan(new Location(longitude, latitude));
+
         // fake sensor changes
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -13,7 +14,7 @@ public class TrashcanMain {
                 trashcan.readTemperature();
                 trashcan.mqttClient.sendMessage(trashcan.getTrashcanId(), "{ \"action\":\"getHistoryEntryResponse\", \"data\": " + trashcan.trashcanHistoryEntryJSON() + " }");
             }
-        }, 0, 20000);
+        }, 10000, 20000);
     }
 
     public static void main(String[] args) {
