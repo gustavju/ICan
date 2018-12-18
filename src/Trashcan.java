@@ -1,3 +1,4 @@
+import java.util.Date;
 import java.util.UUID;
 
 abstract public class Trashcan {
@@ -11,6 +12,7 @@ abstract public class Trashcan {
     private boolean flammable;
     protected MQTTClient mqttClient;
     protected final int MAX_TEMPERATURE = 80;
+    protected Date lastEmptied;
 
 
     public Trashcan(Location location, boolean flammable) {
@@ -21,7 +23,8 @@ abstract public class Trashcan {
         this.flammable = flammable;
         String[] subs = {trashcanId, "trashcanDiscovery"};
         mqttClient = new MQTTClient(trashcanId, new TrashCanCallBack(this), subs);
-        mqttClient.sendMessage("trashcanDiscoveryResponse", this.toString());
+        mqttClient.sendMessage("trashcanDiscoveryResponse", this.toJSON());
+        lastEmptied = new Date();
     }
 
     public Trashcan() {

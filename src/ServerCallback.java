@@ -25,8 +25,10 @@ public class ServerCallback implements MqttCallback {
         switch (topic) {
             case "trashcanDiscoveryResponse":
                 handleTrashcanDiscoveryResponse(message);
+                break;
             case "garbagetruckDiscoveryResponse":
                 handleGarbagetruckDiscoveryResponse(message);
+                break;
             default:
                 JSONObject jsonMessage = new JSONObject(message);
                 if (jsonMessage.getString("action").equals("getHistoryEntryResponse")) {
