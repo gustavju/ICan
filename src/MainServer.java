@@ -28,7 +28,7 @@ public class MainServer {
 
     public TrashcanHistory getTrashcanHistoryById(String Id) {
         for (TrashcanHistory trashcanHistory : trashcanHistories) {
-            if (trashcanHistory.getTrashcanId() == Id)
+            if (trashcanHistory.getTrashcanId().equals(Id))
                 return trashcanHistory;
         }
         return null;

@@ -84,7 +84,7 @@ abstract public class Trashcan {
     abstract public String toString();
 
     public String trashcanHistoryEntryJSON() {
-        return "{ \"temperature\":\"" + getTemperature() + "\", \"trashLevel\": \"" + getLevel() + "\", \"canStatus\":\"" + getStatus() + "\", \"lastEmptied\": \"" + lastEmptied.toString() + "\"}";
+        return "{ \"temperature\":\"" + getTemperature() + "\", \"trashLevel\": \"" + getLevel() + "\", \"canStatus\":\"" + getStatus() + "\", \"lastEmptied\": \"" + lastEmptied.getTime() + "\"}";
     }
 
     public String toJSON() {
