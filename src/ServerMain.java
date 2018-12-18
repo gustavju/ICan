@@ -70,7 +70,7 @@ class HandleTrashRequest implements HttpHandler {
                 break;
         }
         String response = "";
-        exchange.getResponseHeaders().set("Content-Type", "appication/json; charset=UTF-8");
+        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
         exchange.sendResponseHeaders(200, response.getBytes().length);//response code and length
         OutputStream os = exchange.getResponseBody();
         os.write(response.getBytes());
@@ -102,7 +102,7 @@ class HandleGetTrashcansRequest implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         String response = server.getTrashcanJSON();
-        exchange.getResponseHeaders().set("Content-Type", "appication/json; charset=UTF-8");
+        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
         exchange.sendResponseHeaders(200, response.getBytes().length);//response code and length
         OutputStream os = exchange.getResponseBody();
         os.write(response.getBytes());

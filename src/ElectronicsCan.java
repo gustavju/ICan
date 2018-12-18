@@ -22,7 +22,6 @@ public class ElectronicsCan extends Trashcan {
 
     @Override
     public void specificCalc() {
-       //TODO: SEND MESSAGE BRO IM TOXIC
         if (isToxic()){
             mqttClient.sendMessage(trashcanId,"toxic");
         }

@@ -42,7 +42,7 @@ public class TrashCanCallBack implements MqttCallback {
                 trashcan.changeStatus(CanStatus.PICKUPPENDING);
                 break;
             case "getHistoryEntry":
-                trashcan.mqttClient.sendMessage(trashcan.trashcanId,trashcan.trashcanHistoryEntryJSON());
+                trashcan.mqttClient.sendMessage(trashcan.trashcanId, "{ \"action\":\"getHistoryEntryResponse\", \"data\": " + trashcan.trashcanHistoryEntryJSON() + " }");
                 break;
 
         }

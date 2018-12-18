@@ -26,4 +26,12 @@ public class MainServer {
         return trashcans + "]";
     }
 
+    public TrashcanHistory getTrashcanHistoryById(String Id) {
+        for (TrashcanHistory trashcanHistory : trashcanHistories) {
+            if (trashcanHistory.getTrashcanId() == Id)
+                return trashcanHistory;
+        }
+        return null;
+    }
+
 }

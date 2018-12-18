@@ -90,10 +90,6 @@ abstract public class Trashcan {
 
     private void calculateCanStatus() {
         if (canStatus != CanStatus.ONFIRE) {
-            if (canStatus != CanStatus.NEEDPICKUP) {
-                specificCalc();
-                return;
-            }
             double currentLevel = trashLevelSensor.getLevel();
             if (currentLevel == 0) {
                 canStatus = CanStatus.EMPTY;
@@ -102,6 +98,7 @@ abstract public class Trashcan {
             } else {
                 canStatus = CanStatus.FULL;
             }
+            specificCalc();
         }
 
     }

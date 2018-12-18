@@ -4,6 +4,8 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
+
 public class ServerCallback implements MqttCallback {
     private MainServer server;
 
@@ -25,16 +27,13 @@ public class ServerCallback implements MqttCallback {
                 handleTrashcanDiscoveryResponse(message);
             case "garbagetruckDiscoveryResponse":
                 handleGarbagetruckDiscoveryResponse(message);
-            case "Trashcan1":
-                //switchTrashcan(message, trashcans.get(0));
-                break;
-            case "Trashcan2":
-                //switchTrashcan(message, trashcans.get(1));
-                break;
-            case "Trashcan3":
-                //switchTrashcan(message, trashcans.get(2));
-                break;
-            case "GarbageTruck":
+            default:
+                JSONObject jsonMessage = new JSONObject(message);
+                if (jsonMessage.getString("action").equals("getHistoryEntryResponse")) {
+                    TrashcanHistoryEntry trashcanHistoryEntry = new TrashcanHistoryEntry(jsonMessage.getJSONObject("data"));
+                    server.getTrashcanHistoryById(topic).addEntry(trashcanHistoryEntry);
+                    System.out.println(message);
+                }
                 break;
         }
         System.out.println("Message received:\n\t" + message);
@@ -54,6 +53,7 @@ public class ServerCallback implements MqttCallback {
                 server.trashcanHistories.add(trashcanHistory);
                 server.mqttClient.subscribe(trashCanId);
             }
+            server.mqttClient.sendMessage(trashCanId, "getHistoryEntry");
         } catch (JSONException ex) {
             System.out.println("Message:" + ex.getMessage());
         }
