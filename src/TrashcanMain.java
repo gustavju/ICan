@@ -5,13 +5,13 @@ import java.util.TimerTask;
 
 public class TrashcanMain {
     private static ArrayList<Location> locationList = new ArrayList<Location>(){{
-        add(new Location(59.407859, 17.944644));
-        add(new Location(59.407296, 17.937902));
-        add(new Location(59.411183, 17.942859));
-        add(new Location(59.398546, 17.947002));
-        add(new Location(59.401205, 17.937862));
-        add(new Location(59.398338, 17.937847));
-        add(new Location(59.412139, 17.973096));
+        add(new Location(17.944644,59.407859));
+        add(new Location(17.937902,59.407296));
+        add(new Location(17.942859,59.411183));
+        add(new Location(17.947002,59.398546));
+        add(new Location(17.937862,59.401205));
+        add(new Location(17.937847,59.398338));
+        add(new Location(17.973096,59.412139));
     }};
     private static Random rand = new Random();
     private void run(Location location) {
