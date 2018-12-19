@@ -23,6 +23,13 @@ public class GarbageTruck {
         route = new ArrayList<String>();
     }
 
+    public GarbageTruck(String id, Location location, double capacity){
+        garbageTruckId = id;
+        this.location = location;
+        this.capacity = capacity;
+        //Kan behövas sättas till null
+    }
+
     public void setLocation(Location location) {
         this.location = location;
     }

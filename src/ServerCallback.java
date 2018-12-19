@@ -69,10 +69,16 @@ public class ServerCallback implements MqttCallback {
         System.out.println(message);
         try {
             JSONObject garbagetruckJson = new JSONObject(message);
-            String garbagetruckId = garbagetruckJson.getString("garbageTruckId");
-            if (!server.garbageTruckIds.contains(garbagetruckId)) {
-                server.garbageTruckIds.add(garbagetruckId);
-                server.mqttClient.subscribe(garbagetruckId);
+            //String garbagetruckId = garbagetruckJson.getString("garbageTruckId");
+            Location location = new Location(
+                garbagetruckJson.getJSONObject("location").getDouble("longitude"),
+                garbagetruckJson.getJSONObject("location").getDouble("latitude"));
+            String id = garbagetruckJson.getString("garbageTruckId");
+            double capacity = Double.parseDouble(garbagetruckJson.getString("capacity"));
+            GarbageTruck garbageTruck = new GarbageTruck(id,location,capacity);
+            if (!server.garbageTrucks.contains(garbageTruck)) {
+                server.garbageTrucks.add(garbageTruck);
+                server.mqttClient.subscribe(garbageTruck.getGarbageTruckId());
             }
         } catch (JSONException ex) {
             System.out.println("Message:" + ex.getMessage());

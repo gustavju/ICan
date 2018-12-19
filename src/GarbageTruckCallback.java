@@ -22,7 +22,7 @@ public class GarbageTruckCallback implements MqttCallback {
         String message = new String(mqttMessage.getPayload());
         System.out.println("Message received:\n\t" + message);
         if (topic.equals("garbagetruckDiscovery")) {
-            garbageTruck.mqttClient.sendMessage("garbagetruckDiscoveryResponse", garbageTruck.toString());
+            garbageTruck.mqttClient.sendMessage("garbagetruckDiscoveryResponse", garbageTruck.toJson());
         }else{
             takeAction(message);
         }

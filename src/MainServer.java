@@ -1,14 +1,16 @@
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class MainServer {
 
     protected MQTTClient mqttClient;
     protected ArrayList<TrashcanHistory> trashcanHistories;
-    protected ArrayList<String> garbageTruckIds;
+    protected ArrayList<GarbageTruck> garbageTrucks;
 
     public MainServer() {
         trashcanHistories = new ArrayList<TrashcanHistory>();
-        garbageTruckIds = new ArrayList<String>();
+        garbageTrucks = new ArrayList<GarbageTruck>();
         String[] subs = {"trashcanDiscoveryResponse", "garbagetruckDiscoveryResponse"};
         mqttClient = new MQTTClient("server", new ServerCallback(this), subs);
 
@@ -24,6 +26,19 @@ public class MainServer {
         }
         System.out.println(trashcans);
         return trashcans + "]";
+    }
+
+    public String getGarbageTruckJSON() {
+        String garbageTruck = "[";
+        for (int i = 0; i < garbageTrucks.size(); i++) {
+            garbageTruck += garbageTrucks.get(i).toJson();
+            if(i != garbageTrucks.size()-1){
+                garbageTruck+=",";
+            }
+
+        }
+        System.out.println(garbageTruck);
+        return garbageTruck +"]";
     }
 
     public TrashcanHistory getTrashcanHistoryById(String Id) {
