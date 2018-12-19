@@ -87,7 +87,7 @@ public class GarbageTruck {
     public void emptyTrashcan(String id){
         if(route.contains(id)){
             mqttClient.sendMessage(id,"empty");
-            //Koppla så att Trucken fylls med det som finns i soptunnan.
+            //todo: Koppla så att Trucken fylls med det som finns i soptunnan.
 
 
             route.remove(id);
@@ -98,5 +98,11 @@ public class GarbageTruck {
         return "{" +
                 "garbageTruckId=" + garbageTruckId +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        return ((GarbageTruck) obj).getGarbageTruckId().equals(this.garbageTruckId);
     }
 }
