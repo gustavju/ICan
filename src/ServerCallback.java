@@ -30,11 +30,8 @@ public class ServerCallback implements MqttCallback {
                 handleGarbagetruckDiscoveryResponse(message);
                 break;
             default:
-                if (message.equals("getHistoryEntry")) {
-                    break;
-                }
-                JSONObject jsonMessage = new JSONObject(message);
-                if (jsonMessage.getString("action").equals("getHistoryEntryResponse")) {
+                if (message.contains("getHistoryEntryResponse")) {
+                    JSONObject jsonMessage = new JSONObject(message);
                     TrashcanHistoryEntry trashcanHistoryEntry = new TrashcanHistoryEntry(jsonMessage.getJSONObject("data"));
                     TrashcanHistory trashcanHistory = server.getTrashcanHistoryById(topic);
                     trashcanHistory.addEntry(trashcanHistoryEntry);

@@ -37,6 +37,19 @@ public class ServerMain {
         }
     }
 
+    public static void sendResponseJSON(HttpExchange exchange, String response) {
+        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+        try {
+            exchange.sendResponseHeaders(200, response.getBytes().length);//response code and length
+            OutputStream os = exchange.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        } catch (Exception ex) {
+            System.out.println("Exeption: " + ex.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         new ServerMain().run();
     }
@@ -69,13 +82,8 @@ class HandleCommandRequest implements HttpHandler {
                 server.mqttClient.sendMessage(id, "booked");
                 break;
         }
-        String response = String.format("{ \"Message\": %s sent to trashcan with id: %s }", command, id);
-        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
-        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
-        exchange.sendResponseHeaders(200, response.getBytes().length);//response code and length
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+        String response = String.format("{ \"Message\": \"%s sent to trashcan with id: %s\" }", command, id);
+        ServerMain.sendResponseJSON(exchange, response);
     }
 
 
@@ -102,35 +110,28 @@ class HandleGetTrashcansRequest implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        System.out.println("hejehej");
         String response = server.getTrashcanJSON();
-        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
-        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
-        exchange.sendResponseHeaders(200, response.getBytes().length);//response code and length
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+        ServerMain.sendResponseJSON(exchange, response);
     }
 }
 
-class HandleGetGarbageTruckRequest implements HttpHandler{
+class HandleGetGarbageTruckRequest implements HttpHandler {
     MainServer server;
 
-    HandleGetGarbageTruckRequest(MainServer server){
+    HandleGetGarbageTruckRequest(MainServer server) {
         this.server = server;
     }
 
     public void handle(HttpExchange exchange) throws IOException {
 
         String response = server.getGarbageTruckJSON();
-        exchange.getResponseHeaders().set("Content-Type","application/json; charset=UTF-8");
-        exchange.sendResponseHeaders(200,response.getBytes().length);
+        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+        exchange.sendResponseHeaders(200, response.getBytes().length);
         OutputStream os = exchange.getResponseBody();
         os.write(response.getBytes());
         os.close();
     }
 }
-
 
 
 
