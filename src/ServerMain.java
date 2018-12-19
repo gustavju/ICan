@@ -31,6 +31,8 @@ public class ServerMain {
             commandContext.setHandler(new HandleCommandRequest(server));
             HttpContext getTrashcansContext = webServer.createContext("/getTrashcans");
             getTrashcansContext.setHandler(new HandleGetTrashcansRequest(server));
+            HttpContext getGarbagetruckContext = webServer.createContext("/getGarbagetruck");
+            getGarbagetruckContext.setHandler(new HandleGetGarbageTruckRequest(server));
             webServer.start();
         } catch (Exception ex) {
             System.out.println(ex);
@@ -82,6 +84,7 @@ class HandleCommandRequest implements HttpHandler {
                 server.mqttClient.sendMessage(id, "booked");
                 break;
         }
+        server.mqttClient.sendMessage(id, "getHistoryEntry");
         String response = String.format("{ \"Message\": \"%s sent to trashcan with id: %s\" }", command, id);
         ServerMain.sendResponseJSON(exchange, response);
     }
