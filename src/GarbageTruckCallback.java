@@ -35,6 +35,7 @@ public class GarbageTruckCallback implements MqttCallback {
         if(splitMessage[0].equals("trashLevel")){
             String level = splitMessage[1];
                 garbageTruck.fillTruck(Double.parseDouble(level));
+                return;
         }
 
        try {
