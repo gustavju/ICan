@@ -103,9 +103,12 @@ abstract public class Trashcan {
             }
             specificCalc();
         }
-
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return ((Trashcan) obj).getTrashcanId().equals(this.trashcanId);
+    }
 
     abstract public void specificCalc();
 
