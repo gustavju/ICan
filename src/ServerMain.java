@@ -128,11 +128,7 @@ class HandleGetGarbageTruckRequest implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
 
         String response = server.getGarbageTruckJSON();
-        exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
-        exchange.sendResponseHeaders(200, response.getBytes().length);
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+        ServerMain.sendResponseJSON(exchange, response);
     }
 }
 
