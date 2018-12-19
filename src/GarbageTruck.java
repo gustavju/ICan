@@ -70,8 +70,8 @@ public class GarbageTruck {
     public String toJson() {
         return
                 "{\"garbageTruckId\":" + "\"" + garbageTruckId + "\"" +
-                        "\"location\":" + "\"" + location +
-                        "\"" + "\"capacity\":" + "\"" + capacity + "\"";
+                        ",\"location\":" + location.toJSON() +
+                        ",\"capacity\":" + "\"" + capacity + "\"}";
     }
 
 
