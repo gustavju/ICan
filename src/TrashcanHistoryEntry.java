@@ -44,7 +44,7 @@ public class TrashcanHistoryEntry {
                 "\"timestamp\":\"" + timestamp +
                 "\", \"temperature\":\"" + temperature +
                 "\", \"trashLevel\":\"" + trashLevel +
-                "\", \"lastEmptied\":\"" + lastEmptied +
+                "\", \"lastEmptied\":\"" + lastEmptied.toString() +
                 "\"}";
     }
 }

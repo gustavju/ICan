@@ -19,12 +19,12 @@ public class MainServer {
     public String getTrashcanJSON() {
         String trashcans = "[";
         for (int i = 0; i < trashcanHistories.size(); i++) {
-            trashcans += trashcanHistories.get(i).toJSON();
+            String trashcanHistoriesJSON = trashcanHistories.get(i).toJSON();
+            trashcans += trashcanHistoriesJSON;
             if (i != trashcanHistories.size() - 1) {
                 trashcans += ",";
             }
         }
-        System.out.println(trashcans);
         return trashcans + "]";
     }
 

@@ -23,7 +23,7 @@ public class TrashcanHistory {
         if (history.size() == 0)
             return "{ \"trashcanId\": \"" + trashcanId + "\", \"location\": " + location.toJSON() + "}";
         else
-            return "{ \"trashcanId\": \"" + trashcanId + "\", \"location\": " + location.toJSON() + ", \"TrashcanHistoryEntry\":" + history.get(history.size()).toJSON() + "}";
+            return "{ \"trashcanId\": \"" + trashcanId + "\", \"location\": " + location.toJSON() + ", \"TrashcanHistoryEntry\":" + history.get(history.size() - 1).toJSON() + "}";
     }
 
     @Override

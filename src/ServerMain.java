@@ -27,8 +27,8 @@ public class ServerMain {
         */
         try {
             HttpServer webServer = HttpServer.create(new InetSocketAddress(8500), 0);
-            HttpContext emptyContext = webServer.createContext("/empty");
-            emptyContext.setHandler(new HandleTrashRequest(server));
+            HttpContext commandContext = webServer.createContext("/trashcanCommand");
+            commandContext.setHandler(new HandleCommandRequest(server));
             HttpContext getTrashcansContext = webServer.createContext("/getTrashcans");
             getTrashcansContext.setHandler(new HandleGetTrashcansRequest(server));
             webServer.start();
@@ -42,10 +42,10 @@ public class ServerMain {
     }
 }
 
-class HandleTrashRequest implements HttpHandler {
+class HandleCommandRequest implements HttpHandler {
     MainServer server;
 
-    HandleTrashRequest(MainServer server) {
+    HandleCommandRequest(MainServer server) {
         this.server = server;
     }
 
@@ -69,8 +69,9 @@ class HandleTrashRequest implements HttpHandler {
                 server.mqttClient.sendMessage(id, "booked");
                 break;
         }
-        String response = "";
+        String response = String.format("{ \"Message\": %s sent to trashcan with id: %s }", command, id);
         exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
         exchange.sendResponseHeaders(200, response.getBytes().length);//response code and length
         OutputStream os = exchange.getResponseBody();
         os.write(response.getBytes());
@@ -101,8 +102,10 @@ class HandleGetTrashcansRequest implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        System.out.println("hejehej");
         String response = server.getTrashcanJSON();
         exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
         exchange.sendResponseHeaders(200, response.getBytes().length);//response code and length
         OutputStream os = exchange.getResponseBody();
         os.write(response.getBytes());
