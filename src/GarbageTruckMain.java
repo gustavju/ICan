@@ -11,8 +11,8 @@ public class GarbageTruckMain {
         double longitude;
         double latitude;
         if (args.length == 0) {
-            longitude = 66.00;
-            latitude = 66.00;
+            longitude = 17.944543;
+            latitude = 59.407136;
         } else {
             longitude = Double.parseDouble(args[0]);
             latitude = Double.parseDouble(args[1]);
