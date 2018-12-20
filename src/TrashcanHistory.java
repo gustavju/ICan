@@ -2,15 +2,17 @@ import java.util.ArrayList;
 
 public class TrashcanHistory {
     private String trashcanId;
+    private String type;
     private Location location;
     private ArrayList<TrashcanHistoryEntry> history;
     private boolean isConnected;
 
-    public TrashcanHistory(String trashcanId, Location location) {
+    public TrashcanHistory(String trashcanId, Location location, String type) {
         this.trashcanId = trashcanId;
         this.location = location;
         this.history = new ArrayList<TrashcanHistoryEntry>();
         this.isConnected = true;
+        this.type = type;
     }
 
     public void addEntry(TrashcanHistoryEntry trashcanHistoryEntry) {

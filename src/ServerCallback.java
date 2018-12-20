@@ -50,7 +50,8 @@ public class ServerCallback implements MqttCallback {
                     trashcanJson.getJSONObject("location").getDouble("latitude")
             );
             String trashCanId = trashcanJson.getString("trashcanId");
-            TrashcanHistory trashcanHistory = new TrashcanHistory(trashCanId, location);
+            String type = trashcanJson.getString("type");
+            TrashcanHistory trashcanHistory = new TrashcanHistory(trashCanId, location, type);
             if (!server.trashcanHistories.contains(trashcanHistory)) {
                 server.trashcanHistories.add(trashcanHistory);
                 server.mqttClient.subscribe(trashCanId);
