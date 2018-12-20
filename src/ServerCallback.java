@@ -15,7 +15,6 @@ public class ServerCallback implements MqttCallback {
 
     @Override
     public void connectionLost(Throwable throwable) {
-
     }
 
     @Override

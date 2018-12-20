@@ -29,6 +29,10 @@ public class TrashcanHistoryEntry {
         }
     }
 
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
     @Override
     public String toString() {
         return "TrashcanHistoryEntry{" +

@@ -41,6 +41,12 @@ public class MainServer {
         return garbageTruck +"]";
     }
 
+    public void checkConnections() {
+        for (TrashcanHistory trashcanHistory : trashcanHistories) {
+            trashcanHistory.getLastestHistory().getTimestamp();
+        }
+    }
+
     public TrashcanHistory getTrashcanHistoryById(String Id) {
         for (TrashcanHistory trashcanHistory : trashcanHistories) {
             if (trashcanHistory.getTrashcanId().equals(Id))
