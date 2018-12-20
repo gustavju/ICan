@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ServerMain {
 
@@ -37,6 +39,14 @@ public class ServerMain {
         } catch (Exception ex) {
             System.out.println(ex);
         }
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                server.checkConnections();
+            }
+        }, 10000, 30000);
+
     }
 
     public static void sendResponseJSON(HttpExchange exchange, String response) {

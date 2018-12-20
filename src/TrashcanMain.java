@@ -26,6 +26,7 @@ public class TrashcanMain {
                 trashcan.mqttClient.sendMessage(trashcan.getTrashcanId(), "{ \"action\":\"getHistoryEntryResponse\", \"data\": " + trashcan.trashcanHistoryEntryJSON() + " }");
             }
         }, 10000, 20000);
+
     }
 
     public static void main(String[] args) {
