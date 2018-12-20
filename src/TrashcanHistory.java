@@ -32,6 +32,10 @@ public class TrashcanHistory {
             return "{ \"trashcanId\": \"" + trashcanId + "\", \"location\": " + location.toJSON() + ", \"TrashcanHistoryEntry\":" + history.get(history.size() - 1).toJSON() + ", \"isConnected\": \"" + isConnected + "\"}";
     }
 
+    public void setConnected(boolean connected) {
+        isConnected = connected;
+    }
+
     @Override
     public String toString() {
         return "TrashcanHistory{" +

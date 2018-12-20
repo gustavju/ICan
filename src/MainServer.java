@@ -32,18 +32,22 @@ public class MainServer {
         String garbageTruck = "[";
         for (int i = 0; i < garbageTrucks.size(); i++) {
             garbageTruck += garbageTrucks.get(i).toJson();
-            if(i != garbageTrucks.size()-1){
-                garbageTruck+=",";
+            if (i != garbageTrucks.size() - 1) {
+                garbageTruck += ",";
             }
 
         }
         System.out.println(garbageTruck);
-        return garbageTruck +"]";
+        return garbageTruck + "]";
     }
 
     public void checkConnections() {
         for (TrashcanHistory trashcanHistory : trashcanHistories) {
-            trashcanHistory.getLastestHistory().getTimestamp();
+            if (System.currentTimeMillis() - trashcanHistory.getLastestHistory().getTimestamp().getTime() > 30) {
+                trashcanHistory.setConnected(false);
+            } else {
+                trashcanHistory.setConnected(true);
+            }
         }
     }
 
