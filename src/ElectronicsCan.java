@@ -28,4 +28,8 @@ public class ElectronicsCan extends Trashcan {
         }
 
     }
+
+    public String typeAsJson(){
+        return  "\"type\": \"" + "electronics" + "\"";
+    }
 }
