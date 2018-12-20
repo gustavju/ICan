@@ -52,6 +52,11 @@ public class HouseholdCan extends Trashcan {
             canStatus = CanStatus.NONHYGENIC;
     }
 
+    @Override
+    public String typeAsJson() {
+        return "\"type:\":\"household\"";
+
+    }
 
     @Override
     public String toString() {

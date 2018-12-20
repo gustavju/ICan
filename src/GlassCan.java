@@ -9,6 +9,11 @@ public class GlassCan extends Trashcan {
     }
 
     @Override
+    public String typeAsJson() {
+        return "\"type:\":\"glass\"";
+    }
+
+    @Override
     public String toString() {
         return "{" +
                 "location=" + location +

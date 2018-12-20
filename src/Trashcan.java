@@ -16,8 +16,6 @@ abstract public class Trashcan {
     protected Date lastEmptied;
 
 
-
-
     public Trashcan(Location location, boolean flammable) {
         trashcanId = UUID.randomUUID().toString();
         this.location = location;
@@ -91,7 +89,7 @@ abstract public class Trashcan {
     }
 
     public String toJSON() {
-        return "{ \"trashcanId\": \"" + trashcanId + "\", \"location\": " + location.toJSON() + " }";
+        return "{ \"trashcanId\": \"" + trashcanId + "\", \"location\": " + location.toJSON() + "," + typeAsJson() + " }";
     }
 
     private void calculateCanStatus() {
@@ -112,6 +110,8 @@ abstract public class Trashcan {
     public boolean equals(Object obj) {
         return ((Trashcan) obj).getTrashcanId().equals(this.trashcanId);
     }
+
+    abstract public String typeAsJson();
 
     abstract public void specificCalc();
 

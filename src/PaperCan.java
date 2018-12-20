@@ -4,6 +4,10 @@ public class PaperCan extends Trashcan {
 
     }
 
+    @Override
+    public String typeAsJson() {
+        return "\"type:\":\"paper\"";
+    }
 
     @Override
     public String toString() {
