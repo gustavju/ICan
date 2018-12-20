@@ -21,9 +21,4 @@ public class GlassCan extends Trashcan {
                 '}';
     }
 
-    public String typeAsJson(){
-        return  "\"type\": \"" + "glass" + "\"";
-    }
-
-
 }
