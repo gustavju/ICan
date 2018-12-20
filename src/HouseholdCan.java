@@ -54,7 +54,7 @@ public class HouseholdCan extends Trashcan {
 
     @Override
     public String typeAsJson() {
-        return "\"type:\":\"household\"";
+        return "\"type\":\"household\"";
 
     }
 
