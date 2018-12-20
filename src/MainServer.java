@@ -43,7 +43,7 @@ public class MainServer {
 
     public void checkConnections() {
         for (TrashcanHistory trashcanHistory : trashcanHistories) {
-            if (System.currentTimeMillis() - trashcanHistory.getLastestHistory().getTimestamp().getTime() > 30) {
+            if (System.currentTimeMillis() - trashcanHistory.getLastestHistory().getTimestamp().getTime() > 30000) {
                 trashcanHistory.setConnected(false);
             } else {
                 trashcanHistory.setConnected(true);
