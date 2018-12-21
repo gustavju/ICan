@@ -15,7 +15,7 @@ public class TrashcanMain {
     }};
     private static Random rand = new Random();
     private void run(Location location) {
-        HouseholdCan trashcan = new HouseholdCan(location);
+        ElectronicsCan trashcan = new ElectronicsCan(location);
 
         // fake sensor changes
         new Timer().scheduleAtFixedRate(new TimerTask() {

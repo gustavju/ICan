@@ -36,17 +36,14 @@ public class GarbageTruck {
 
     public void addTrashcan(String trashcanID) {
         route.add(trashcanID);
+        mqttClient.subscribe(trashcanID);
     }
 
-    public void setRoute(Trashcan trashcan) {
 
-        if ((capacity + trashcan.getLevel()) >= MAX_CAPACITY * 0.8) {
-            System.out.println("Error: Route is full");
-            return;
-        }
+    public void removeFromRoute(String trashCanId){
+        route.remove(trashCanId);
+        mqttClient.unsubscribe(trashCanId);
 
-        route.add(trashcan.getTrashcanId());
-        trashcan.changeStatus(CanStatus.PICKUPPENDING);
     }
 
     public void fillTruck(double trashLevel) {
@@ -60,7 +57,7 @@ public class GarbageTruck {
         } else {
             capacity += trashLevel / 10;
         }
-
+        System.out.println(capacity);
     }
 
     public String getGarbageTruckId() {

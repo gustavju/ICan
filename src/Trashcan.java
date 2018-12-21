@@ -74,6 +74,7 @@ abstract public class Trashcan {
 
     public void startTrashFire() {
         temperatureSensor.startTrashFire();
+        specificCalc();
 
     }
 

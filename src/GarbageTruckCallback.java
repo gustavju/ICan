@@ -24,40 +24,42 @@ public class GarbageTruckCallback implements MqttCallback {
         if (topic.equals("garbagetruckDiscovery")) {
             garbageTruck.mqttClient.sendMessage("garbagetruckDiscoveryResponse", garbageTruck.toJson());
         }else{
-            takeAction(message);
+            takeAction(topic,message);
         }
     }
 
 
-    private void takeAction(String message) {
+    private void takeAction(String topic,String message) {
         //String splitMessage = message.split("Message:" )[1];
         String[] splitMessage = message.split(":");
         if(splitMessage[0].equals("trashLevel")){
             String level = splitMessage[1];
                 garbageTruck.fillTruck(Double.parseDouble(level));
+                garbageTruck.removeFromRoute(topic);
                 return;
         }
+        if(message.contains("route")) {
 
-       try {
-           JSONObject action = new JSONObject(message);
-           System.out.println(action.getString("action"));
-           switch(action.getString("action")){
+            try {
+                JSONObject action = new JSONObject(message);
+                System.out.println(action.getString("action"));
+                switch (action.getString("action")) {
 
-               case "route" :
-                   JSONArray data = action.getJSONArray("data");
-                   System.out.println(data.get(0)+""+data.get(1)+""+data.length());
-                   for (int i = 0; i <data.length() ; i++) {
-                       String trashcan = data.get(i).toString();
-                       System.out.println(trashcan);
-                       garbageTruck.addTrashcan(trashcan);
-                       System.out.println("Traschan: "+trashcan+" Added!");
-                   }
-           }
+                    case "route":
+                        JSONArray data = action.getJSONArray("data");
+                        System.out.println(data.get(0) + " " + data.length());
+                        for (int i = 0; i < data.length(); i++) {
+                            String trashcan = data.get(i).toString();
+                            System.out.println(trashcan);
+                            garbageTruck.addTrashcan(trashcan);
+                            System.out.println("Traschan: " + trashcan + " Added!");
+                        }
+                }
 
-       }catch(JSONException ex){
-           System.out.println(ex.getMessage());
-       }
-
+            } catch (JSONException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 
     private void switchTrashcan(String message){
