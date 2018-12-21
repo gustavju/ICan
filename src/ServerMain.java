@@ -3,13 +3,9 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.InetSocketAddress;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class ServerMain {
 
@@ -31,6 +27,8 @@ public class ServerMain {
             HttpServer webServer = HttpServer.create(new InetSocketAddress(8500), 0);
             HttpContext commandContext = webServer.createContext("/trashcanCommand");
             commandContext.setHandler(new HandleCommandRequest(server));
+            HttpContext routeContext = webServer.createContext("/garbagetruckRoute");
+            routeContext.setHandler(new HandleRouteRequest(server));
             HttpContext getTrashcansContext = webServer.createContext("/getTrashcans");
             getTrashcansContext.setHandler(new HandleGetTrashcansRequest(server));
             HttpContext getGarbagetruckContext = webServer.createContext("/getGarbagetruck");
@@ -62,6 +60,19 @@ public class ServerMain {
         }
     }
 
+    public static Map<String, String> queryToMap(String query) {
+        Map<String, String> result = new HashMap<>();
+        for (String param : query.split("&")) {
+            String[] entry = param.split("=");
+            if (entry.length > 1) {
+                result.put(entry[0], entry[1]);
+            } else {
+                result.put(entry[0], "");
+            }
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         new ServerMain().run();
     }
@@ -76,7 +87,7 @@ class HandleCommandRequest implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        Map<String, String> query = queryToMap(exchange.getRequestURI().getQuery());
+        Map<String, String> query = ServerMain.queryToMap(exchange.getRequestURI().getQuery());
         String command = query.get("command");
         String id = query.get("id");
         System.out.println(command + ":" + id);
@@ -98,19 +109,28 @@ class HandleCommandRequest implements HttpHandler {
         String response = String.format("{ \"Message\": \"%s sent to trashcan with id: %s\" }", command, id);
         ServerMain.sendResponseJSON(exchange, response);
     }
+}
 
+class HandleRouteRequest implements HttpHandler {
+    MainServer server;
 
-    public Map<String, String> queryToMap(String query) {
-        Map<String, String> result = new HashMap<>();
-        for (String param : query.split("&")) {
-            String[] entry = param.split("=");
-            if (entry.length > 1) {
-                result.put(entry[0], entry[1]);
-            } else {
-                result.put(entry[0], "");
-            }
+    HandleRouteRequest(MainServer server) {
+        this.server = server;
+    }
+
+    @Override
+    public void handle(HttpExchange exchange) throws IOException {
+        Map<String, String> query = ServerMain.queryToMap(exchange.getRequestURI().getQuery());
+        String garbagetruckId = query.get("garbagetruckId");
+        System.out.println(garbagetruckId);
+        int trascanCansInRoute = Integer.parseInt(query.get("num"));
+        List<String> trashcanIds = new ArrayList<>();
+        for (int i = 0; i < trascanCansInRoute; i++) {
+            String currentTrashcan = "t" + i;
+            trashcanIds.add("\"" + query.get(currentTrashcan) + "\"");
         }
-        return result;
+        System.out.println("{ \"action\": \"route\", \"data\": " + trashcanIds + " }");
+        server.mqttClient.sendMessage(garbagetruckId, "{ \"action\": \"route\", \"data\": " + trashcanIds + " }");
     }
 }
 

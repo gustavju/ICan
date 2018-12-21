@@ -29,9 +29,9 @@ public class TrashcanHistory {
 
     public String toJSON() {
         if (history.size() == 0)
-            return "{ \"trashcanId\": \"" + trashcanId + "\", \"location\": " + location.toJSON() + ", \"isConnected\": \"" + isConnected + "\"}";
+            return "{ \"trashcanId\": \"" + trashcanId + "\", \"type\": \"" + type + "\", \"location\": " + location.toJSON() + ", \"isConnected\": \"" + isConnected + "\"}";
         else
-            return "{ \"trashcanId\": \"" + trashcanId + "\", \"location\": " + location.toJSON() + ", \"TrashcanHistoryEntry\":" + history.get(history.size() - 1).toJSON() + ", \"isConnected\": \"" + isConnected + "\"}";
+            return "{ \"trashcanId\": \"" + trashcanId + "\", \"type\": \"" + type + "\" , \"location\": " + location.toJSON() + ", \"TrashcanHistoryEntry\":" + history.get(history.size() - 1).toJSON() + ", \"isConnected\": \"" + isConnected + "\"}";
     }
 
     public void setConnected(boolean connected) {
