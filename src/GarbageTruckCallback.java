@@ -30,15 +30,22 @@ public class GarbageTruckCallback implements MqttCallback {
 
 
     private void takeAction(String topic,String message) {
-        //String splitMessage = message.split("Message:" )[1];
-        String[] splitMessage = message.split(":");
-        if(splitMessage[0].equals("trashLevel")){
-            String level = splitMessage[1];
-                garbageTruck.fillTruck(Double.parseDouble(level));
+       // String[] splitMessage = message.split(":");
+        if(message.contains("trashLevel")){
+            try {
+                JSONObject trashToEmpty = new JSONObject(message);
+                garbageTruck.fillTruck(trashToEmpty.getDouble("trashLevel"));
+                Location newLocation = new Location(
+                    trashToEmpty.getJSONObject("location").getDouble("longitude"),
+                    trashToEmpty.getJSONObject("location").getDouble("latitude")
+                );
+                garbageTruck.setLocation(newLocation);
                 garbageTruck.removeFromRoute(topic);
-                return;
+            }catch(JSONException ex){
+                System.out.println(ex.getMessage());
+            }
         }
-        if(message.contains("route")) {
+        else if(message.contains("route")) {
 
             try {
                 JSONObject action = new JSONObject(message);
@@ -60,29 +67,12 @@ public class GarbageTruckCallback implements MqttCallback {
                 System.out.println(ex.getMessage());
             }
         }
+
+
+
+
     }
 
-    private void switchTrashcan(String message){
-        switch(message.split(":")[0]){
-            case "temperature":
-                break;
-            case "trashlevel" :
-                break;
-            case "canStatus" :
-                break;
-        }
-    }
-
-
-    private void switchServer(String message){
-        switch(message.split(":")[0]){
-            case "temperature":
-                break;
-            case "trashlevel" :
-                break;
-
-        }
-    }
 
 
 

@@ -58,6 +58,7 @@ abstract public class Trashcan {
         return trashLevelSensor.getLevel();
     }
 
+
     public void addTrash() {
         trashLevelSensor.addTrash();
         calculateCanStatus();
