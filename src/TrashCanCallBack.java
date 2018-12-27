@@ -31,6 +31,7 @@ public class TrashCanCallBack implements MqttCallback {
                 break;
             case "empty":
                 Double level = trashcan.getLevel();
+                String s = "{ \"trashLevel\": \"" + level.toString() + "\", \"location\": " + trashcan.location.toJSON() + " }";
                 trashcan.mqttClient.sendMessage(trashcan.getTrashcanId(),"trashLevel:"+level.toString());
                 trashcan.empty();
                 break;
