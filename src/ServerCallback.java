@@ -36,6 +36,12 @@ public class ServerCallback implements MqttCallback {
                     trashcanHistory.addEntry(trashcanHistoryEntry);
                     System.out.println(message);
                 }
+                if (message.contains("getGarbagetruckStatusUpdate")) {
+                    JSONObject jsonMessage = new JSONObject(message);
+                    GarbageTruck garbageTruck = parseGarbagetruckJson(jsonMessage.getJSONObject("data").toString());
+                    server.garbageTrucks.remove(garbageTruck);
+                    server.garbageTrucks.add(garbageTruck);
+                }
                 break;
         }
         System.out.println("Message received:\n\t" + message);
@@ -64,22 +70,26 @@ public class ServerCallback implements MqttCallback {
 
     private void handleGarbagetruckDiscoveryResponse(String message) {
         System.out.println(message);
+        GarbageTruck garbageTruck = parseGarbagetruckJson(message);
+        if (!server.garbageTrucks.contains(garbageTruck)) {
+            server.garbageTrucks.add(garbageTruck);
+            server.mqttClient.subscribe(garbageTruck.getGarbageTruckId());
+        }
+    }
+
+    private GarbageTruck parseGarbagetruckJson(String message) {
         try {
             JSONObject garbagetruckJson = new JSONObject(message);
-            //String garbagetruckId = garbagetruckJson.getString("garbageTruckId");
             Location location = new Location(
-                garbagetruckJson.getJSONObject("location").getDouble("longitude"),
-                garbagetruckJson.getJSONObject("location").getDouble("latitude"));
+                    garbagetruckJson.getJSONObject("location").getDouble("longitude"),
+                    garbagetruckJson.getJSONObject("location").getDouble("latitude"));
             String id = garbagetruckJson.getString("garbageTruckId");
             double capacity = Double.parseDouble(garbagetruckJson.getString("capacity"));
-            GarbageTruck garbageTruck = new GarbageTruck(id,location,capacity);
-            if (!server.garbageTrucks.contains(garbageTruck)) {
-                server.garbageTrucks.add(garbageTruck);
-                server.mqttClient.subscribe(garbageTruck.getGarbageTruckId());
-            }
-        } catch (JSONException ex) {
+            return new GarbageTruck(id, location, capacity);
+        } catch (Exception ex) {
             System.out.println("Message:" + ex.getMessage());
         }
+        return null;
     }
 
     private void switchTrashcan(String message, Trashcan trashcan) {

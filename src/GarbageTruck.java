@@ -71,6 +71,9 @@ public class GarbageTruck {
                         ",\"capacity\":" + "\"" + capacity + "\"}";
     }
 
+    public String getGarbagetruckStatusUpdate() {
+        return "{ \"action:\" \"getGarbagetruckStatusUpdate\", \"data\": " + this.toJson() + "}";
+    }
 
     public List<String> getRoute() {
         return route;

@@ -41,6 +41,7 @@ public class GarbageTruckCallback implements MqttCallback {
                 );
                 garbageTruck.setLocation(newLocation);
                 garbageTruck.removeFromRoute(topic);
+                garbageTruck.mqttClient.sendMessage(garbageTruck.getGarbageTruckId(), garbageTruck.getGarbagetruckStatusUpdate());
             }catch(JSONException ex){
                 System.out.println(ex.getMessage());
             }
