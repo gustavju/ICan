@@ -72,7 +72,7 @@ public class GarbageTruck {
     }
 
     public String getGarbagetruckStatusUpdate() {
-        return "{ \"action:\" \"getGarbagetruckStatusUpdate\", \"data\": " + this.toJson() + "}";
+        return "{ \"action\": \"getGarbagetruckStatusUpdate\", \"data\": " + this.toJson() + "}";
     }
 
     public List<String> getRoute() {
