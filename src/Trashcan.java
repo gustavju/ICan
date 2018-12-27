@@ -70,6 +70,7 @@ abstract public class Trashcan {
             HouseholdCan householdCan = (HouseholdCan) this;
             householdCan.updatePickup();
         }
+        lastEmptied = new Date();
     }
 
     public void startTrashFire() {
