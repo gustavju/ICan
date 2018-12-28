@@ -45,7 +45,7 @@ abstract public class Trashcan {
 
     public void readTemperature() {
         temperatureSensor.readTemperature();
-        if (temperatureSensor.getTemperature() > MAX_TEMPERATURE && flammable)
+        if (temperatureSensor.getTemperature() > MAX_TEMPERATURE && flammable && !(canStatus == CanStatus.TOXIC))
             canStatus = CanStatus.ONFIRE;
         if (this instanceof HouseholdCan) {
             HouseholdCan householdCan = (HouseholdCan) this;
