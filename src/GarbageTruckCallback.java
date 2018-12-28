@@ -44,12 +44,12 @@ public class GarbageTruckCallback implements MqttCallback {
                 garbageTruck.setLocation(newLocation);
                 garbageTruck.removeFromRoute(topic);
                 garbageTruck.mqttClient.sendMessage(garbageTruck.getGarbageTruckId(), garbageTruck.getGarbagetruckStatusUpdate());
+                try{
+                    TimeUnit.SECONDS.sleep(3);
+                }catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
                 if (garbageTruck.getRoute().isEmpty()) {
-                    try {
-                        TimeUnit.SECONDS.sleep(3);
-                    } catch (Exception ex) {
-                        System.out.println(ex.getMessage());
-                    }
                     garbageTruck.setLocation(new Location(17.938740, 59.383689));
                     garbageTruck.mqttClient.sendMessage(garbageTruck.getGarbageTruckId(), garbageTruck.getGarbagetruckStatusUpdate());
                 }
@@ -86,9 +86,6 @@ public class GarbageTruckCallback implements MqttCallback {
     }
 
 
-    private void doRoute() {
-
-    }
 
 
     @Override
