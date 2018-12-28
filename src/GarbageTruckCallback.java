@@ -74,11 +74,6 @@ public class GarbageTruckCallback implements MqttCallback {
                         }
                         for (String trashcanId : garbageTruck.getRoute()) {
                             garbageTruck.mqttClient.sendMessage(trashcanId, "empty");
-                            try {
-                                TimeUnit.SECONDS.sleep(3);
-                            } catch (Exception ex) {
-                                System.out.println(ex.getMessage());
-                            }
                         }
                 }
 
