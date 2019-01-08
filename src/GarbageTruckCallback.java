@@ -20,7 +20,7 @@ public class GarbageTruckCallback implements MqttCallback {
     }
 
     @Override
-    public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
+    public void messageArrived(String topic, MqttMessage mqttMessage) {
         String message = new String(mqttMessage.getPayload());
         System.out.println("Message received:\n\t" + message);
         if (topic.equals("garbagetruckDiscovery")) {
@@ -56,7 +56,6 @@ public class GarbageTruckCallback implements MqttCallback {
                 System.out.println(ex.getMessage());
             }
         } else if (message.contains("route")) {
-
             try {
                 JSONObject action = new JSONObject(message);
                 System.out.println(action.getString("action"));
@@ -75,17 +74,11 @@ public class GarbageTruckCallback implements MqttCallback {
                             garbageTruck.mqttClient.sendMessage(trashcanId, "empty");
                         }
                 }
-
             } catch (JSONException ex) {
                 System.out.println(ex.getMessage());
             }
         }
-
-
     }
-
-
-
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {

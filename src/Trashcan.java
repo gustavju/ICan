@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,7 +13,6 @@ abstract public class Trashcan {
     protected MQTTClient mqttClient;
     protected final int MAX_TEMPERATURE = 80;
     protected Date lastEmptied;
-
 
     public Trashcan(Location location, boolean flammable) {
         trashcanId = UUID.randomUUID().toString();
@@ -53,11 +51,9 @@ abstract public class Trashcan {
         }
     }
 
-
     public double getLevel() {
         return trashLevelSensor.getLevel();
     }
-
 
     public void addTrash() {
         trashLevelSensor.addTrash();

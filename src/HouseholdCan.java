@@ -3,11 +3,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-    public class HouseholdCan extends Trashcan {
+public class HouseholdCan extends Trashcan {
     private double hygieneLevel;
 
-        // protected final double MAX_LEVEL_HYGIENE = 1400; lowered threshold for demo
-        protected final double MAX_LEVEL_HYGIENE = 140;
+    // protected final double MAX_LEVEL_HYGIENE = 1400; lowered threshold for demo
+    protected final double MAX_LEVEL_HYGIENE = 140;
     private List<Double> temperaturesSincePickup;
 
     public HouseholdCan(Location location) {

@@ -13,16 +13,7 @@ public class ServerMain {
         MainServer server = new MainServer();
         server.mqttClient.sendMessage("trashcanDiscovery", "");
         server.mqttClient.sendMessage("garbagetruckDiscovery", "");
-        /*
-        server.trashcanHistories.add(new TrashcanHistory("hej-alla-barn", new Location(1.09, 1.78)));
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException ex) {
-            System.out.println(ex);
-        }
-        System.out.println(server.garbageTruckIds.get(0));
-        server.mqttClient.sendMessage(server.garbageTruckIds.get(0), "{ action:route, data:['" + server.trashcanHistories.get(0).getTrashcanId() + "','kjehj-345-345']}");
-        */
+
         try {
             HttpServer webServer = HttpServer.create(new InetSocketAddress(8500), 0);
             HttpContext commandContext = webServer.createContext("/trashcanCommand");
@@ -86,7 +77,7 @@ class HandleCommandRequest implements HttpHandler {
     }
 
     @Override
-    public void handle(HttpExchange exchange) throws IOException {
+    public void handle(HttpExchange exchange) {
         Map<String, String> query = ServerMain.queryToMap(exchange.getRequestURI().getQuery());
         String command = query.get("command");
         String id = query.get("id");
@@ -119,7 +110,7 @@ class HandleRouteRequest implements HttpHandler {
     }
 
     @Override
-    public void handle(HttpExchange exchange) throws IOException {
+    public void handle(HttpExchange exchange) {
         Map<String, String> query = ServerMain.queryToMap(exchange.getRequestURI().getQuery());
         String garbagetruckId = query.get("garbagetruckId");
         System.out.println(garbagetruckId);
@@ -142,7 +133,7 @@ class HandleGetTrashcansRequest implements HttpHandler {
     }
 
     @Override
-    public void handle(HttpExchange exchange) throws IOException {
+    public void handle(HttpExchange exchange) {
         String response = server.getTrashcanJSON();
         ServerMain.sendResponseJSON(exchange, response);
     }
@@ -155,7 +146,7 @@ class HandleGetGarbageTruckRequest implements HttpHandler {
         this.server = server;
     }
 
-    public void handle(HttpExchange exchange) throws IOException {
+    public void handle(HttpExchange exchange) {
 
         String response = server.getGarbageTruckJSON();
         ServerMain.sendResponseJSON(exchange, response);

@@ -1,5 +1,3 @@
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 public class MainServer {
@@ -13,7 +11,6 @@ public class MainServer {
         garbageTrucks = new ArrayList<GarbageTruck>();
         String[] subs = {"trashcanDiscoveryResponse", "garbagetruckDiscoveryResponse"};
         mqttClient = new MQTTClient("server", new ServerCallback(this), subs);
-
     }
 
     public String getTrashcanJSON() {

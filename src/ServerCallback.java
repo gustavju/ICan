@@ -4,8 +4,6 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Date;
-
 public class ServerCallback implements MqttCallback {
     private MainServer server;
 

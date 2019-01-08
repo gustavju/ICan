@@ -1,8 +1,8 @@
 import java.util.Random;
 
 public class TrashLevelSensor extends Sensor {
-    private final int MAX_CAPACITY;
 
+    private final int MAX_CAPACITY;
     private double level;
 
     TrashLevelSensor(String Id, float level, final int MAX_CAPACITY) {

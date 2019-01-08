@@ -14,17 +14,18 @@ public class TrashcanHistoryEntry {
         this.timestamp = new Date();
         this.temperature = temperature;
         this.trashLevel = trashLevel;
+        this.canStatus = canStatus;
         this.lastEmptied = lastEmptied;
     }
 
-    public TrashcanHistoryEntry(JSONObject Job){
+    public TrashcanHistoryEntry(JSONObject Job) {
         this.timestamp = new Date();
         try {
             this.temperature = Job.getDouble("temperature");
             this.trashLevel = Job.getDouble("trashLevel");
             this.lastEmptied = new Date(Long.parseLong(Job.getString("lastEmptied")));
-            this.canStatus = canStatus.valueOf(Job.getString("canStatus"));
-        }catch( JSONException ex){
+            this.canStatus = CanStatus.valueOf(Job.getString("canStatus"));
+        } catch (JSONException ex) {
             System.out.println(ex.toString());
         }
     }
@@ -49,6 +50,6 @@ public class TrashcanHistoryEntry {
                 "\", \"temperature\":\"" + temperature +
                 "\", \"trashLevel\":\"" + trashLevel +
                 "\", \"lastEmptied\":\"" + lastEmptied.toString() +
-                "\", \"canStatus\":\""+canStatus.toString()+"\"}";
+                "\", \"canStatus\":\"" + canStatus.toString() + "\"}";
     }
 }

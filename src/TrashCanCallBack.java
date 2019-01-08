@@ -5,7 +5,6 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class TrashCanCallBack implements MqttCallback {
     private Trashcan trashcan;
 
-
     public TrashCanCallBack(Trashcan trashcan) {
         this.trashcan = trashcan;
     }
@@ -14,7 +13,7 @@ public class TrashCanCallBack implements MqttCallback {
         System.out.println("Connection to MQTT broker lost!");
     }
 
-    public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
+    public void messageArrived(String topic, MqttMessage mqttMessage) {
         String message = new String(mqttMessage.getPayload());
         System.out.println("Message received:\n\t" + message);
         if (topic.equals("trashcanDiscovery")) {
@@ -33,7 +32,6 @@ public class TrashCanCallBack implements MqttCallback {
                 Double level = trashcan.getLevel();
                 String s = "{ \"trashLevel\": \"" + level.toString() + "\", \"location\": " + trashcan.location.toJSON() + " }";
                 trashcan.mqttClient.sendMessage(trashcan.getTrashcanId(),s);
-
                 trashcan.empty();
                 break;
             case "startTrashFire":
@@ -48,11 +46,9 @@ public class TrashCanCallBack implements MqttCallback {
             case "getHistoryEntry":
                 trashcan.mqttClient.sendMessage(trashcan.trashcanId, "{ \"action\":\"getHistoryEntryResponse\", \"data\": " + trashcan.trashcanHistoryEntryJSON() + " }");
                 break;
-
         }
     }
 
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
-
     }
 }

@@ -1,8 +1,6 @@
 public class ElectronicsCan extends Trashcan {
     private boolean toxic;
 
-
-
     public ElectronicsCan(Location location) {
         super(location, true);
     }
@@ -10,7 +8,6 @@ public class ElectronicsCan extends Trashcan {
     public boolean isToxic(){
         return temperatureSensor.getTemperature() > MAX_TEMPERATURE;
     }
-
 
     @Override
     public String toString() {
