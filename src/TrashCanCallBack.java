@@ -53,6 +53,6 @@ public class TrashCanCallBack implements MqttCallback {
     }
 
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
-        // not used in this example
+
     }
 }

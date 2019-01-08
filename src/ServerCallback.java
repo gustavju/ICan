@@ -92,16 +92,6 @@ public class ServerCallback implements MqttCallback {
         return null;
     }
 
-    private void switchTrashcan(String message, Trashcan trashcan) {
-
-    }
-
-    private void switchGarbageTruck(String message) {
-        switch (message) {
-
-        }
-    }
-
     @Override
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
 

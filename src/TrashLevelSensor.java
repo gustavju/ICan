@@ -19,10 +19,6 @@ public class TrashLevelSensor extends Sensor {
         level = 0;
     }
 
-    public void fill() {
-        level = MAX_CAPACITY;
-    }
-
     public void addTrash() {
         Random rand = new Random();
         int trashVolume = 1 + rand.nextInt(40);

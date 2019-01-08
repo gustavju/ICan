@@ -27,7 +27,6 @@ public class GarbageTruck {
         garbageTruckId = id;
         this.location = location;
         this.capacity = capacity;
-        //Kan behövas sättas till null
     }
 
     public void setLocation(Location location) {
@@ -79,20 +78,7 @@ public class GarbageTruck {
         return route;
     }
 
-    /*public void emptyTruck() {
 
-        route.clear();
-    }*/
-
-    public void emptyTrashcan(String id){
-        if(route.contains(id)){
-            mqttClient.sendMessage(id,"empty");
-            //todo: Koppla så att Trucken fylls med det som finns i soptunnan.
-
-
-            route.remove(id);
-        }
-    }
     @Override
     public String toString() {
         return "{" +

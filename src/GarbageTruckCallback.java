@@ -32,7 +32,6 @@ public class GarbageTruckCallback implements MqttCallback {
 
 
     private void takeAction(String topic, String message) {
-        // String[] splitMessage = message.split(":");
         if (message.contains("trashLevel")) {
             try {
                 JSONObject trashToEmpty = new JSONObject(message);
