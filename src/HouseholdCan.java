@@ -6,7 +6,8 @@ import java.util.concurrent.TimeUnit;
     public class HouseholdCan extends Trashcan {
     private double hygieneLevel;
 
-    protected final double MAX_LEVEL_HYGIENE = 1400;
+        // protected final double MAX_LEVEL_HYGIENE = 1400; lowered threshold for demo
+        protected final double MAX_LEVEL_HYGIENE = 140;
     private List<Double> temperaturesSincePickup;
 
     public HouseholdCan(Location location) {
@@ -19,7 +20,8 @@ import java.util.concurrent.TimeUnit;
         double hygiene = 0.0;
         if (canStatus == CanStatus.NORMAL) {
             long dif = Math.abs(new Date().getTime() - lastEmptied.getTime());
-            int hours = (int) TimeUnit.HOURS.convert(dif, TimeUnit.MILLISECONDS);
+            // int hours = (int) TimeUnit.HOURS.convert(dif, TimeUnit.MILLISECONDS); changed from hours to seconds for easy demo
+            int hours = (int) TimeUnit.SECONDS.convert(dif, TimeUnit.MILLISECONDS);
             hygiene = hours * avgTemperature();
         }
         return hygiene;
